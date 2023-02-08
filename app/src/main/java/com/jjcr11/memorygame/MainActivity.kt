@@ -2,7 +2,9 @@ package com.jjcr11.memorygame
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.jjcr11.memorygame.databinding.ActivityMainBinding
 import java.util.Stack
@@ -21,22 +23,27 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
         val navController = navHostFragment.navController
 
+        var prev: Int
+
         binding.bnv.setOnItemSelectedListener { item ->
+            prev = binding.bnv.selectedItemId
             when (item.itemId) {
                 R.id.iScore -> {
-                    if(binding.bnv.selectedItemId != R.id.iScore) {
+                    if (binding.bnv.selectedItemId != R.id.iScore) {
                         navController.navigate(R.id.action_global_scoreFragment)
                     }
                     true
                 }
                 R.id.iPlay -> {
-                    if(binding.bnv.selectedItemId != R.id.iPlay) {
-                        navController.popBackStack()
+                    if (prev == R.id.iScore) {
+                        navController.navigate(R.id.action_scoreFragment_to_gameFragment)
+                    } else if (prev == R.id.iSettings) {
+                        navController.navigate(R.id.action_settingsFragment_to_gameFragment)
                     }
                     true
                 }
                 R.id.iSettings -> {
-                    if(binding.bnv.selectedItemId != R.id.iSettings) {
+                    if (binding.bnv.selectedItemId != R.id.iSettings) {
                         navController.navigate(R.id.action_global_settingsFragment)
                     }
                     true
@@ -45,9 +52,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(binding.bnv.selectedItemId != R.id.iPlay) {
+                if (binding.bnv.selectedItemId != R.id.iPlay) {
                     binding.bnv.selectedItemId = R.id.iPlay
                 } else {
                     finish()

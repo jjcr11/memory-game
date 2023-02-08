@@ -14,12 +14,28 @@
         android:id="@+id/scoreFragment"
         android:name="com.jjcr11.memorygame.ScoreFragment"
         android:label="fragment_score"
-        tools:layout="@layout/fragment_score" />
+        tools:layout="@layout/fragment_score">
+        <action
+            android:id="@+id/action_scoreFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/anim_pop_enter_score"
+            app:exitAnim="@anim/anim_pop_exit_score"
+            app:popEnterAnim="@anim/anim_enter_score"
+            app:popExitAnim="@anim/anim_exit_score" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.jjcr11.memorygame.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/anim_enter_score"
+            app:exitAnim="@anim/anim_exit_score"
+            app:popEnterAnim="@anim/anim_pop_enter_score"
+            app:popExitAnim="@anim/anim_pop_exit_score" />
+    </fragment>
     <action
         android:id="@+id/action_global_scoreFragment"
         app:destination="@id/scoreFragment"
@@ -27,9 +43,6 @@
         app:exitAnim="@anim/anim_exit_score"
         app:popEnterAnim="@anim/anim_pop_enter_score"
         app:popExitAnim="@anim/anim_pop_exit_score" />
-    <action
-        android:id="@+id/action_global_gameFragment"
-        app:destination="@id/gameFragment" />
     <action
         android:id="@+id/action_global_settingsFragment"
         app:destination="@id/settingsFragment"
