@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_crayola">#FFF3722C</color>
+    <color name="orange_crayola">#FFF3722C</color>  <!-- 2 -->
     <color name="coral">#FFF9844A</color>
     <color name="zomp">#FF43AA8B</color>
     <color name="payne_gray">#FF577590</color>
     <color name="black">#FF121212</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="imperial_red">#FFF94144</color>    <!-- 1 -->
+    <color name="fuchsia">#FFF820ED</color>         <!-- 3 -->
+    <color name="saffron">#FFF9C74F</color>         <!-- 4 -->
+    <color name="pistachio">#FF90BE6D</color>       <!-- 5 -->
+    <color name="dark_cyan">#FF8F8C4D</color>       <!-- 6 -->
+    <color name="rose_taupe">#FF8F5E56</color>      <!-- 7 -->
+    <color name="cerulean">#FF277DA1</color>        <!-- 8 -->
 </resources>
