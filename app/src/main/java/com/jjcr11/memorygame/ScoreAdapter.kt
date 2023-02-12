@@ -1,0 +1,52 @@
+package com.jjcr11.memorygame
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.jjcr11.memorygame.databinding.ItemScoreBinding
+
+class ScoreAdapter(
+    private val scores: List<Score>,
+    val listener: ScoreAdapterOnTouch
+) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
+
+    private lateinit var context: Context
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val binding = ItemScoreBinding.bind(view)
+
+        @SuppressLint("ClickableViewAccessibility")
+        fun setListener() {
+            binding.mcv.setOnTouchListener { view, motionEvent ->
+                listener.onTouch(view, motionEvent, adapterPosition)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(R.layout.item_score, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val score = scores[position]
+        holder.let {
+            it.setListener()
+            it.binding.tvScore.text = "${score.score} Score"
+            val wrappedDrawable = DrawableCompat.wrap(it.binding.ivMedal.drawable)
+            val mutableDrawable = wrappedDrawable.mutate()
+            DrawableCompat.setTint(
+                mutableDrawable,
+                ContextCompat.getColor(context, score.medal)
+            )
+        }
+    }
+
+    override fun getItemCount(): Int = scores.size
+}

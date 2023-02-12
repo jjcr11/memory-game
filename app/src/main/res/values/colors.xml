@@ -14,4 +14,10 @@
     <color name="dark_cyan">#FF8F8C4D</color>       <!-- 6 -->
     <color name="rose_taupe">#FF8F5E56</color>      <!-- 7 -->
     <color name="cerulean">#FF277DA1</color>        <!-- 8 -->
+
+    <color name="gold">#FFFFDF00</color>
+    <color name="silver">#FFC4CACE</color>
+    <color name="copper">#FFB87333</color>
+
+    <color name="transparent">#00000000</color>
 </resources>
