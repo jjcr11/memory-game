@@ -3,19 +3,20 @@ package com.jjcr11.memorygame
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jjcr11.memorygame.databinding.FragmentScoreBinding
 
-
-class ScoreFragment : Fragment(), ScoreAdapterOnTouch {
+class ScoreFragment : Fragment() {
 
     private lateinit var binding: FragmentScoreBinding
     private lateinit var adapter: ScoreAdapter
     private lateinit var layoutManager: RecyclerView.LayoutManager
+
+    private lateinit var swipeHelper: ItemTouchHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +45,7 @@ class ScoreFragment : Fragment(), ScoreAdapterOnTouch {
             )
         }
 
-        adapter = ScoreAdapter(list, this)
+        adapter = ScoreAdapter(list)
         layoutManager = LinearLayoutManager(requireContext())
 
         binding.rv.let {
@@ -52,10 +53,9 @@ class ScoreFragment : Fragment(), ScoreAdapterOnTouch {
             it.layoutManager = layoutManager
         }
 
-        return binding.root
-    }
+        swipeHelper = ItemTouchHelper(ScoreItemTouchHelper(list, adapter, requireContext(), binding.root))
+        swipeHelper.attachToRecyclerView(binding.rv)
 
-    override fun onTouch(view: View, motionEvent: MotionEvent, position: Int): Boolean {
-        return false
+        return binding.root
     }
 }

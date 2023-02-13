@@ -1,6 +1,5 @@
 package com.jjcr11.memorygame
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,21 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jjcr11.memorygame.databinding.ItemScoreBinding
 
 class ScoreAdapter(
-    private val scores: List<Score>,
-    val listener: ScoreAdapterOnTouch
+    private val scores: MutableList<Score>,
 ) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemScoreBinding.bind(view)
-
-        @SuppressLint("ClickableViewAccessibility")
-        fun setListener() {
-            binding.mcv.setOnTouchListener { view, motionEvent ->
-                listener.onTouch(view, motionEvent, adapterPosition)
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,7 +28,6 @@ class ScoreAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val score = scores[position]
         holder.let {
-            it.setListener()
             it.binding.tvScore.text = "${score.score} Score"
             val wrappedDrawable = DrawableCompat.wrap(it.binding.ivMedal.drawable)
             val mutableDrawable = wrappedDrawable.mutate()
@@ -49,4 +39,9 @@ class ScoreAdapter(
     }
 
     override fun getItemCount(): Int = scores.size
+
+    fun restoreScore(position: Int, score: Score) {
+        scores.add(position, score)
+        notifyItemInserted(position)
+    }
 }

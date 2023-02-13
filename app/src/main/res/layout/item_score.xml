@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcv"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/item_score_height"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"

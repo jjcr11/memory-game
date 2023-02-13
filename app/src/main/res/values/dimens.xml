@@ -5,4 +5,5 @@
     <dimen name="button_side">50dp</dimen>
     <dimen name="common">16dp</dimen>
     <dimen name="button_play_side">70dp</dimen>
+    <dimen name="item_score_height">100dp</dimen>
 </resources>
