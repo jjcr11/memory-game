@@ -1,4 +1,4 @@
-package com.jjcr11.memorygame
+package com.jjcr11.memorygame.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,14 +6,21 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.jjcr11.memorygame.R
+import com.jjcr11.memorygame.model.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ScoreItemTouchHelper(
     private val adapter: ScoreAdapter,
     private val context: Context,
-    private val layout: View
+    private val layout: View,
+    private val lifecycleOwner: LifecycleOwner
 ) : ItemTouchHelper.SimpleCallback(
     0,
     ItemTouchHelper.RIGHT
@@ -27,10 +34,15 @@ class ScoreItemTouchHelper(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
         val score = adapter.deleteScore(position)
-
+        lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            AppDatabase.getDatabase(context).dao().removeScore(score)
+        }
         Snackbar.make(layout, "Deleted", Snackbar.LENGTH_SHORT)
             .setAction("Undo") {
                 adapter.restoreScore(position, score)
+                lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    AppDatabase.getDatabase(context).dao().addScore(score)
+                }
             }
             .show()
     }

@@ -1,13 +1,11 @@
-package com.jjcr11.memorygame
+package com.jjcr11.memorygame.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.ActivityMainBinding
-import java.util.Stack
 
 class MainActivity : AppCompatActivity() {
 

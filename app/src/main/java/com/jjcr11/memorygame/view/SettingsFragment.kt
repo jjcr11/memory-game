@@ -1,4 +1,4 @@
-package com.jjcr11.memorygame
+package com.jjcr11.memorygame.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

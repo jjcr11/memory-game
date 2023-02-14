@@ -1,4 +1,4 @@
-package com.jjcr11.memorygame
+package com.jjcr11.memorygame.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,19 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.ItemScoreBinding
+import com.jjcr11.memorygame.model.Score
 
 class ScoreAdapter(
-    private val scores: MutableList<Score>,
+    scores: MutableList<Score>,
 ) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
+
+    var scores = scores
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     private lateinit var context: Context
 
@@ -29,6 +37,7 @@ class ScoreAdapter(
         val score = scores[position]
         holder.let {
             it.binding.tvScore.text = "${score.score} Score"
+            it.binding.tvDate.text = score.date
             val wrappedDrawable = DrawableCompat.wrap(it.binding.ivMedal.drawable)
             val mutableDrawable = wrappedDrawable.mutate()
             DrawableCompat.setTint(
@@ -44,7 +53,7 @@ class ScoreAdapter(
         scores.add(position, score)
         notifyItemInserted(position)
 
-        if(position in 0..2) {
+        if (position in 0..2) {
             if (scores.size >= 4) {
                 scores[0].medal = R.color.gold
                 scores[1].medal = R.color.silver

@@ -1,4 +1,4 @@
-package com.jjcr11.memorygame
+package com.jjcr11.memorygame.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -12,10 +12,16 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
+import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentGameBinding
+import com.jjcr11.memorygame.model.AppDatabase
+import com.jjcr11.memorygame.model.Score
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.math.hypot
 
 class GameFragment : Fragment() {
@@ -153,13 +159,27 @@ class GameFragment : Fragment() {
     }
 
     private fun failGame() {
-        Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_SHORT).show()
-        score = 0
-        round = 1
-        binding.tvScore.text = score.toString()
-        binding.tvScore.visibility = View.INVISIBLE
-        binding.mcvPlay.visibility = View.VISIBLE
-        disabledAll()
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                val now = LocalDate.now()
+                val formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+                val day = now.format(formatter)
+                val s = Score(
+                    score = score,
+                    medal = R.color.transparent,
+                    date = day
+                )
+                AppDatabase.getDatabase(requireContext()).dao().addScore(s)
+            }
+            Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_SHORT).show()
+            score = 0
+            round = 1
+            binding.tvScore.text = score.toString()
+            binding.tvScore.visibility = View.INVISIBLE
+            binding.mcvPlay.visibility = View.VISIBLE
+            disabledAll()
+        }
     }
 
     private fun disabledAll() {
