@@ -53,7 +53,7 @@ class ScoreFragment : Fragment() {
             it.layoutManager = layoutManager
         }
 
-        swipeHelper = ItemTouchHelper(ScoreItemTouchHelper(list, adapter, requireContext(), binding.root))
+        swipeHelper = ItemTouchHelper(ScoreItemTouchHelper(adapter, requireContext(), binding.root))
         swipeHelper.attachToRecyclerView(binding.rv)
 
         return binding.root
