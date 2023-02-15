@@ -15,4 +15,7 @@ interface Dao {
 
     @Query("SELECT * FROM Score ORDER BY score DESC")
     suspend fun getAllScores(): MutableList<Score>
+
+    @Query("UPDATE Score SET medal = :medal WHERE uid = :id")
+    suspend fun updateMedal(id: Long, medal: Int)
 }

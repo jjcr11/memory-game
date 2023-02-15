@@ -159,18 +159,27 @@ class GameFragment : Fragment() {
     }
 
     private fun failGame() {
-
         lifecycleScope.launch(Dispatchers.Main) {
+            val dao = AppDatabase.getDatabase(requireContext()).dao()
             withContext(Dispatchers.IO) {
                 val now = LocalDate.now()
                 val formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
                 val day = now.format(formatter)
-                val s = Score(
+                val score = Score(
                     score = score,
                     medal = R.color.transparent,
                     date = day
                 )
-                AppDatabase.getDatabase(requireContext()).dao().addScore(s)
+                dao.addScore(score)
+                val scores = dao.getAllScores()
+                for(i in scores.indices) {
+                    when(i) {
+                        0 -> dao.updateMedal(scores[0].uid, R.color.gold)
+                        1 -> dao.updateMedal(scores[1].uid, R.color.silver)
+                        2 -> dao.updateMedal(scores[2].uid, R.color.copper)
+                        else -> dao.updateMedal(scores[i].uid, R.color.transparent)
+                    }
+                }
             }
             Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_SHORT).show()
             score = 0

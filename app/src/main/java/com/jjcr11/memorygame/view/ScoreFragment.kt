@@ -1,6 +1,7 @@
 package com.jjcr11.memorygame.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentScoreBinding
+import com.jjcr11.memorygame.model.AppDatabase
 import com.jjcr11.memorygame.viewmodel.ScoreViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,16 +43,6 @@ class ScoreFragment : Fragment() {
 
         scoreViewModel = ViewModelProvider(activity as MainActivity)[ScoreViewModel::class.java]
         scoreViewModel.model.observe(activity as MainActivity) {
-            if (it.size >= 3) {
-                it[0].medal = R.color.gold
-                it[1].medal = R.color.silver
-                it[2].medal = R.color.copper
-            } else if (it.size >= 2) {
-                it[0].medal = R.color.gold
-                it[1].medal = R.color.silver
-            } else if (it.size >= 1) {
-                it[0].medal = R.color.gold
-            }
             adapter.scores = it
         }
 
@@ -69,5 +61,21 @@ class ScoreFragment : Fragment() {
         swipeHelper.attachToRecyclerView(binding.rv)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        lifecycleScope.launch(Dispatchers.IO) {
+            val dao = AppDatabase.getDatabase(requireContext()).dao()
+            val scores = dao.getAllScores()
+            for(i in scores.indices) {
+                when(i) {
+                    0 -> dao.updateMedal(scores[0].uid, R.color.gold)
+                    1 -> dao.updateMedal(scores[1].uid, R.color.silver)
+                    2 -> dao.updateMedal(scores[2].uid, R.color.copper)
+                    else -> dao.updateMedal(scores[i].uid, R.color.transparent)
+                }
+            }
+        }
     }
 }
