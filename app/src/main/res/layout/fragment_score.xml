@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/mtb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/cerulean"
@@ -29,5 +30,20 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="3"
         tools:listitem="@layout/item_score" />
+
+    <FrameLayout
+        android:id="@+id/f"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/black_transparent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
