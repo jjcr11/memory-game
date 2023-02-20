@@ -52,13 +52,17 @@ class MainActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (binding.bnv.selectedItemId != R.id.iPlay) {
-                    binding.bnv.selectedItemId = R.id.iPlay
-                } else {
-                    finish()
-                }
+                updateBottomNavigation()
             }
         })
 
+    }
+
+    fun updateBottomNavigation() {
+        if (binding.bnv.selectedItemId != R.id.iPlay) {
+            binding.bnv.selectedItemId = R.id.iPlay
+        } else {
+            finish()
+        }
     }
 }

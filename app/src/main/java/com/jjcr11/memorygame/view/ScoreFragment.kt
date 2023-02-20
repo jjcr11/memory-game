@@ -62,34 +62,40 @@ class ScoreFragment : Fragment() {
         swipeHelper.attachToRecyclerView(binding.rv)
 
         binding.mtb.menu.getItem(0).setOnMenuItemClickListener {
-            binding.mcv.visibility = View.VISIBLE
-            binding.rv.setOnTouchListener { view, motionEvent -> true }
-            childFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_enter_backdrop,
-                    0,
-                    0,
-                    R.anim.anim_exit_backdrop
-                )
-                .add(R.id.f, BackdropFragment())
-                .addToBackStack("null")
-                .commit()
-            backdropOpen = true
+            if(!backdropOpen) {
+                binding.mcv.visibility = View.VISIBLE
+                binding.rv.setOnTouchListener { view, motionEvent -> true }
+                childFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.anim_enter_backdrop,
+                        0,
+                        0,
+                        R.anim.anim_exit_backdrop
+                    )
+                    .add(R.id.f, BackdropFragment())
+                    .addToBackStack("null")
+                    .commit()
+                backdropOpen = true
+            }
             true
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if (backdropOpen) {
-                binding.mcv.visibility = View.GONE
-                childFragmentManager.popBackStack()
-                backdropOpen = false
-                binding.rv.setOnTouchListener { view, motionEvent -> false }
-            } else {
-                remove()
-            }
+            removeBackdrop()
         }
 
         return binding.root
+    }
+
+    fun removeBackdrop() {
+        if (backdropOpen) {
+            binding.mcv.visibility = View.GONE
+            childFragmentManager.popBackStack()
+            backdropOpen = false
+            binding.rv.setOnTouchListener { view, motionEvent -> false }
+        } else {
+            (activity as MainActivity).updateBottomNavigation()
+        }
     }
 
     override fun onDestroyView() {
