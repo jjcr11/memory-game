@@ -14,8 +14,11 @@ interface Dao {
     suspend fun removeScore(score: Score)
 
     @Query("SELECT * FROM Score ORDER BY score DESC")
-    suspend fun getAllScores(): MutableList<Score>
+    suspend fun getAllScoresByScore(): MutableList<Score>
 
-    @Query("UPDATE Score SET medal = :medal WHERE uid = :id")
+    @Query("SELECT * FROM Score ORDER BY date DESC")
+    suspend fun getAllScoresByDate(): MutableList<Score>
+
+    @Query("UPDATE Score SET medal = :medal WHERE id = :id")
     suspend fun updateMedal(id: Long, medal: Int)
 }

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.ItemScoreBinding
 import com.jjcr11.memorygame.model.Score
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScoreAdapter(
     scores: MutableList<Score>,
@@ -37,7 +39,11 @@ class ScoreAdapter(
         val score = scores[position]
         holder.let {
             it.binding.tvScore.text = "${score.score} Score"
-            it.binding.tvDate.text = score.date
+
+            val formatter = SimpleDateFormat("MMM-dd-yyyy", Locale.US)
+            val stringDate = formatter.format(score.date)
+            it.binding.tvDate.text = stringDate
+
             val wrappedDrawable = DrawableCompat.wrap(it.binding.ivMedal.drawable)
             val mutableDrawable = wrappedDrawable.mutate()
             DrawableCompat.setTint(
@@ -50,46 +56,51 @@ class ScoreAdapter(
     override fun getItemCount(): Int = scores.size
 
     fun restoreScore(position: Int, score: Score) {
+        val gold = scores.find { it.medal == R.color.gold }
+        val silver = scores.find { it.medal == R.color.silver }
+        val copper = scores.find { it.medal == R.color.copper }
+        when (score.medal) {
+            R.color.gold -> {
+                gold?.medal = R.color.silver
+                silver?.medal = R.color.copper
+                copper?.medal = R.color.transparent_2
+            }
+            R.color.silver -> {
+                silver?.medal = R.color.copper
+                copper?.medal = R.color.transparent_2
+            }
+            R.color.copper -> {
+                copper?.medal = R.color.transparent_2
+            }
+        }
+        notifyItemRangeChanged(0, scores.size)
+
         scores.add(position, score)
         notifyItemInserted(position)
-
-        if (position in 0..2) {
-            if (scores.size >= 4) {
-                scores[0].medal = R.color.gold
-                scores[1].medal = R.color.silver
-                scores[2].medal = R.color.copper
-                scores[3].medal = R.color.transparent
-            } else if (scores.size >= 3) {
-                scores[0].medal = R.color.gold
-                scores[1].medal = R.color.silver
-                scores[2].medal = R.color.copper
-            } else if (scores.size >= 2) {
-                scores[0].medal = R.color.gold
-                scores[1].medal = R.color.silver
-            } else if (scores.size >= 1) {
-                scores[0].medal = R.color.gold
-            }
-            notifyItemRangeChanged(0, 4)
-        }
     }
 
     fun deleteScore(position: Int): Score {
         val score = scores.removeAt(position)
         notifyItemRemoved(position)
 
-        if (position in 0..2) {
-            if (scores.size >= 3) {
-                scores[0].medal = R.color.gold
-                scores[1].medal = R.color.silver
-                scores[2].medal = R.color.copper
-            } else if (scores.size >= 2) {
-                scores[0].medal = R.color.gold
-                scores[1].medal = R.color.silver
-            } else if (scores.size >= 1) {
-                scores[0].medal = R.color.gold
+        val silver = scores.find { it.medal == R.color.silver }
+        val copper = scores.find { it.medal == R.color.copper }
+        val transparent = scores.find { it.medal == R.color.transparent_2 }
+        when (score.medal) {
+            R.color.gold -> {
+                silver?.medal = R.color.gold
+                copper?.medal = R.color.silver
+                transparent?.medal = R.color.copper
             }
-            notifyItemRangeChanged(0, 3)
+            R.color.silver -> {
+                copper?.medal = R.color.silver
+                transparent?.medal = R.color.copper
+            }
+            R.color.copper -> {
+                transparent?.medal = R.color.copper
+            }
         }
+        notifyItemRangeChanged(0, scores.size)
 
         return score
     }

@@ -1,5 +1,6 @@
 package com.jjcr11.memorygame.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -47,9 +48,7 @@ class ScoreFragment : Fragment() {
             adapter.scores = it
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            scoreViewModel.getAllScores()
-        }
+        getScores()
 
         swipeHelper = ItemTouchHelper(
             ScoreItemTouchHelper(
@@ -93,6 +92,7 @@ class ScoreFragment : Fragment() {
             childFragmentManager.popBackStack()
             backdropOpen = false
             binding.rv.setOnTouchListener { view, motionEvent -> false }
+            getScores()
         } else {
             (activity as MainActivity).updateBottomNavigation()
         }
@@ -102,14 +102,27 @@ class ScoreFragment : Fragment() {
         super.onDestroyView()
         lifecycleScope.launch(Dispatchers.IO) {
             val dao = AppDatabase.getDatabase(requireContext()).dao()
-            val scores = dao.getAllScores()
+            val scores = dao.getAllScoresByScore()
             for (i in scores.indices) {
                 when (i) {
-                    0 -> dao.updateMedal(scores[0].uid, R.color.gold)
-                    1 -> dao.updateMedal(scores[1].uid, R.color.silver)
-                    2 -> dao.updateMedal(scores[2].uid, R.color.copper)
-                    else -> dao.updateMedal(scores[i].uid, R.color.transparent)
+                    0 -> dao.updateMedal(scores[0].id, R.color.gold)
+                    1 -> dao.updateMedal(scores[1].id, R.color.silver)
+                    2 -> dao.updateMedal(scores[2].id, R.color.copper)
+                    3 -> dao.updateMedal(scores[3].id, R.color.transparent_2)
+                    else -> dao.updateMedal(scores[i].id, R.color.transparent)
                 }
+            }
+        }
+    }
+
+    private fun getScores() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            val scoreSelected = sharedPreferences?.getBoolean("scoreSelected", true)!!
+            if(scoreSelected) {
+                scoreViewModel.getAllScoresByScore()
+            } else {
+                scoreViewModel.getAllScoresByDate()
             }
         }
     }

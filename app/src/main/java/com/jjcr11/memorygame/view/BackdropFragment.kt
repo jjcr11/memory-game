@@ -41,13 +41,13 @@ class BackdropFragment : Fragment() {
         )
 
         binding.mcvScore.setOnClickListener {
-            (parentFragment as ScoreFragment).removeBackdrop()
             sharedPreferences.edit().putBoolean("scoreSelected", true).apply()
+            (parentFragment as ScoreFragment).removeBackdrop()
         }
 
         binding.mcvDate.setOnClickListener {
-            (parentFragment as ScoreFragment).removeBackdrop()
             sharedPreferences.edit().putBoolean("scoreSelected", false).apply()
+            (parentFragment as ScoreFragment).removeBackdrop()
         }
 
         return binding.root

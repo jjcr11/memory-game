@@ -20,5 +20,6 @@
     <color name="copper">#FFB87333</color>
 
     <color name="transparent">#00000000</color>
+    <color name="transparent_2">#00FFFFFF</color>
     <color name="black_transparent">#55121212</color>
 </resources>
