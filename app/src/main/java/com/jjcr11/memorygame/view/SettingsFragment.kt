@@ -17,6 +17,20 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+        binding.clTheme.setOnClickListener {}
+        binding.tvExportData.setOnClickListener {}
+        binding.clType.setOnClickListener {}
+
+        binding.clButton1.setOnClickListener {}
+        binding.clButton2.setOnClickListener {}
+        binding.clButton3.setOnClickListener {}
+        binding.clButton4.setOnClickListener {}
+        binding.clButton5.setOnClickListener {}
+        binding.clButton6.setOnClickListener {}
+        binding.clButton7.setOnClickListener {}
+        binding.clButton8.setOnClickListener {}
+
         return binding.root
     }
 }

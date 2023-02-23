@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,15 +7,420 @@
     android:background="@color/white"
     tools:context=".view.SettingsFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings fragment"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/cerulean"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/menu_tool_bar_settings"
+            app:title="Settings"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTheme"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/settings_margin"
+                    android:text="@string/dark_theme"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTheme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTheme" />
+
+                <TextView
+                    android:id="@+id/tvTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/settings_margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="System" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/settings_margin"
+                    android:text="@string/dont_save_scores_under"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvSave" />
+
+                <TextView
+                    android:id="@+id/tvSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/settings_margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Never" />
+
+                <com.google.android.material.slider.Slider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/settings_margin"
+                    android:stepSize="1"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSave"
+                    app:tickVisible="false" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clType"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/settings_margin"
+                    android:text="@string/button_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvType"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvType" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/settings_margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Colors" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton1"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/imperial_red"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton1" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#F94144" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton2"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/orange_crayola"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton2" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#F3722C" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton3"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/fuchsia"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton3" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#F820ED" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton4"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/saffron"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton4" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#F9C74F" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton5"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/pistachio"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton5" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#90BE6D" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton6"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/dark_cyan"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton6" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#8F8C4D" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton7"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton7"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/rose_taupe"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton7"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton7" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#8F5E56" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clButton8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_option_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcvButton8"
+                        android:layout_width="@dimen/small_button_side"
+                        android:layout_height="@dimen/small_button_side"
+                        android:layout_marginStart="@dimen/settings_margin"
+                        app:cardBackgroundColor="@color/cerulean"
+                        app:layout_constraintBottom_toBottomOf="@id/tvColorButton8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvColorButton8" />
+
+                    <TextView
+                        android:id="@+id/tvColorButton8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/settings_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="#277DA1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvExportData"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/settings_margin"
+                android:text="@string/export_import_data"
+                android:textColor="@color/black"
+                android:textSize="@dimen/settings_text_size"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

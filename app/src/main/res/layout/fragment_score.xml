@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/cerulean"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:menu="@menu/menu_tool_bar"
+            app:menu="@menu/menu_tool_bar_score"
             app:title="Score list"
             app:titleTextColor="@color/white" />
 
