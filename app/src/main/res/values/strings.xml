@@ -9,7 +9,7 @@
     <string name="sort">Sort</string>
     <string name="score">Score</string>
     <string name="date">Date</string>
-    <string name="dark_theme">Dark theme</string>
+    <string name="app_theme">App theme</string>
     <string name="dont_save_scores_under">Don\'t save scores under:</string>
     <string name="button_type">Button type</string>
     <string name="export_import_data">Export / import data</string>

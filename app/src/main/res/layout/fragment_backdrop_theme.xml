@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     android:layout_gravity="bottom"
     android:background="@drawable/shape_backdrop"
     android:orientation="vertical"
     android:paddingHorizontal="10dp"
-    tools:context=".view.BackdropFragment">
+    tools:context=".view.BackdropThemeFragment">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvScore"
+        android:id="@+id/mcvLight"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -24,39 +24,39 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/ivScore"
+                android:id="@+id/ivLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:src="@drawable/ic_star"
+                android:src="@drawable/ic_wb_sunny"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="contentDescription" />
 
             <TextView
-                android:id="@+id/tvScore"
+                android:id="@+id/tvLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:text="@string/score"
+                android:text="Light"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivScore"
-                app:layout_constraintStart_toEndOf="@id/ivScore"
-                app:layout_constraintTop_toTopOf="@id/ivScore" />
+                app:layout_constraintBottom_toBottomOf="@id/ivLight"
+                app:layout_constraintStart_toEndOf="@id/ivLight"
+                app:layout_constraintTop_toTopOf="@id/ivLight" />
 
             <ImageView
-                android:id="@+id/ivSelectScore"
+                android:id="@+id/ivSelectLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:src="@drawable/ic_check_circle_outline"
-                app:layout_constraintBottom_toBottomOf="@id/tvScore"
+                app:layout_constraintBottom_toBottomOf="@id/tvLight"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvScore"
-                app:tint="@color/black"
+                app:layout_constraintTop_toTopOf="@id/tvLight"
+                app:tint="@color/transparent"
                 tools:ignore="contentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -64,9 +64,10 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvDate"
+        android:id="@+id/mcvDark"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
 
@@ -76,39 +77,91 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/ivDate"
+                android:id="@+id/ivDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:src="@drawable/ic_date_range"
+                android:src="@drawable/ic_dark_mode"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black"
                 tools:ignore="contentDescription" />
 
             <TextView
-                android:id="@+id/tvDate"
+                android:id="@+id/tvDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:text="@string/date"
+                android:text="Dark"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivDate"
-                app:layout_constraintStart_toEndOf="@id/ivDate"
-                app:layout_constraintTop_toTopOf="@id/ivDate" />
+                app:layout_constraintBottom_toBottomOf="@id/ivDark"
+                app:layout_constraintStart_toEndOf="@id/ivDark"
+                app:layout_constraintTop_toTopOf="@id/ivDark" />
 
             <ImageView
-                android:id="@+id/ivSelectDate"
+                android:id="@+id/ivSelectDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:src="@drawable/ic_check_circle_outline"
-                app:layout_constraintBottom_toBottomOf="@id/tvDate"
+                app:layout_constraintBottom_toBottomOf="@id/tvDark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvDate"
+                app:layout_constraintTop_toTopOf="@id/tvDark"
+                app:tint="@color/transparent"
+                tools:ignore="contentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvSystem"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/ivSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_phone_android"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="contentDescription" />
+
+            <TextView
+                android:id="@+id/tvSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="System"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/ivSystem"
+                app:layout_constraintStart_toEndOf="@id/ivSystem"
+                app:layout_constraintTop_toTopOf="@id/ivSystem" />
+
+            <ImageView
+                android:id="@+id/ivSelectSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ic_check_circle_outline"
+                app:layout_constraintBottom_toBottomOf="@id/tvSystem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvSystem"
                 app:tint="@color/transparent"
                 tools:ignore="contentDescription" />
 

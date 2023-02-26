@@ -1,8 +1,10 @@
 package com.jjcr11.memorygame.view
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.ActivityMainBinding
@@ -17,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.bnv.selectedItemId = R.id.iPlay
+
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+        when(sharedPreferences?.getInt("theme", 2)!!) {
+            0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
         val navController = navHostFragment.navController

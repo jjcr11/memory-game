@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/settings_margin"
-                    android:text="@string/dark_theme"
+                    android:text="@string/app_theme"
                     android:textColor="@color/black"
                     android:textSize="@dimen/settings_text_size"
                     android:textStyle="bold"
@@ -320,7 +320,7 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/dark_cyan"
+                        app:cardBackgroundColor="@color/medium_slate_blue"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton6"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton6" />
@@ -422,5 +422,23 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/f"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/black_transparent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:rippleColor="@color/transparent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

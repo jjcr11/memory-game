@@ -52,7 +52,7 @@ class GameFragment : Fragment() {
         binding.mcvButton3.setOnClickListener { changeColor(R.color.fuchsia) }
         binding.mcvButton4.setOnClickListener { changeColor(R.color.saffron) }
         binding.mcvButton5.setOnClickListener { changeColor(R.color.pistachio) }
-        binding.mcvButton6.setOnClickListener { changeColor(R.color.dark_cyan) }
+        binding.mcvButton6.setOnClickListener { changeColor(R.color.medium_slate_blue) }
         binding.mcvButton7.setOnClickListener { changeColor(R.color.rose_taupe) }
         binding.mcvButton8.setOnClickListener { changeColor(R.color.cerulean) }
 
@@ -66,7 +66,7 @@ class GameFragment : Fragment() {
             R.color.fuchsia,
             R.color.saffron,
             R.color.pistachio,
-            R.color.dark_cyan,
+            R.color.medium_slate_blue,
             R.color.rose_taupe,
             R.color.cerulean,
         )

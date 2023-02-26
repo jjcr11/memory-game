@@ -72,7 +72,7 @@ class ScoreFragment : Fragment() {
                         R.anim.anim_exit_backdrop
                     )
                     .add(R.id.f, BackdropFragment())
-                    .addToBackStack("null")
+                    .addToBackStack(null)
                     .commit()
                 backdropOpen = true
             }

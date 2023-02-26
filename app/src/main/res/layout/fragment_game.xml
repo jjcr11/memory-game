@@ -95,7 +95,7 @@
         android:id="@+id/mcvButton6"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/dark_cyan"
+        app:cardBackgroundColor="@color/medium_slate_blue"
         app:layout_constraintStart_toStartOf="@id/mcvButton2"
         app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray" />

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange_crayola">#FFC14B0B</color>  <!-- 2 -->
+    <color name="coral">#FFEA5B0E</color>
+    <color name="zomp">#FF307862</color>
+    <color name="payne_gray">#FF3D5366</color>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF121212</color>
+
+    <color name="imperial_red">#FFDB070A</color>    <!-- 1 -->
+    <color name="fuchsia">#FFC206B9</color>         <!-- 3 -->
+    <color name="saffron">#FFE1A008</color>         <!-- 4 -->
+    <color name="pistachio">#FF669443</color>       <!-- 5 -->
+    <color name="medium_slate_blue">#FF4A00F8</color>   <!-- 6 -->
+    <color name="rose_taupe">#FF66433D</color>      <!-- 7 -->
+    <color name="cerulean">#FF1C5872</color>        <!-- 8 -->
+
+    <color name="black_transparent">#55FFFFFF</color>
+</resources>
