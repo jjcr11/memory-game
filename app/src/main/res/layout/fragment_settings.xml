@@ -79,10 +79,10 @@
                     android:textSize="@dimen/settings_text_size"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvSave" />
+                    app:layout_constraintTop_toTopOf="@id/tvUnderScore" />
 
                 <TextView
-                    android:id="@+id/tvSave"
+                    android:id="@+id/tvUnderScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -95,16 +95,17 @@
                     tools:text="Never" />
 
                 <com.google.android.material.slider.Slider
+                    android:id="@+id/s"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/settings_margin"
                     android:stepSize="1"
                     android:valueFrom="0"
-                    android:valueTo="100"
+                    android:valueTo="30"
                     app:labelBehavior="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvSave"
+                    app:layout_constraintTop_toBottomOf="@id/tvUnderScore"
                     app:tickVisible="false" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.jjcr11.memorygame.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -161,21 +162,26 @@ class GameFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Main) {
             val dao = AppDatabase.getDatabase(requireContext()).dao()
             withContext(Dispatchers.IO) {
-                val date = Date()
-                val score = Score(
-                    score = score,
-                    medal = R.color.transparent,
-                    date = date
-                )
-                dao.addScore(score)
-                val scores = dao.getAllScoresByScore()
-                for(i in scores.indices) {
-                    when(i) {
-                        0 -> dao.updateMedal(scores[0].id, R.color.gold)
-                        1 -> dao.updateMedal(scores[1].id, R.color.silver)
-                        2 -> dao.updateMedal(scores[2].id, R.color.copper)
-                        3 -> dao.updateMedal(scores[3].id, R.color.transparent_2)
-                        else -> dao.updateMedal(scores[i].id, R.color.transparent)
+                val sharedPreferences =
+                    activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                val underScore = sharedPreferences?.getFloat("underScore", 0f)!!
+                if (score >= underScore) {
+                    val date = Date()
+                    val score = Score(
+                        score = score,
+                        medal = R.color.transparent,
+                        date = date
+                    )
+                    dao.addScore(score)
+                    val scores = dao.getAllScoresByScore()
+                    for (i in scores.indices) {
+                        when (i) {
+                            0 -> dao.updateMedal(scores[0].id, R.color.gold)
+                            1 -> dao.updateMedal(scores[1].id, R.color.silver)
+                            2 -> dao.updateMedal(scores[2].id, R.color.copper)
+                            3 -> dao.updateMedal(scores[3].id, R.color.transparent_2)
+                            else -> dao.updateMedal(scores[i].id, R.color.transparent)
+                        }
                     }
                 }
             }

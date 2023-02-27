@@ -44,6 +44,15 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        val underScore = sharedPreferences?.getFloat("underScore", 0f)!!
+        setSliderTextView(underScore)
+        binding.s.value = underScore
+
+        binding.s.addOnChangeListener { _, value, _ ->
+            sharedPreferences?.edit()?.putFloat("underScore", value)?.apply()
+            setSliderTextView(value)
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             removeBackdrop()
 
@@ -76,10 +85,17 @@ class SettingsFragment : Fragment() {
     }
 
     private fun changeThemeTitle() {
-        when(sharedPreferences?.getInt("theme", 2)) {
+        when (sharedPreferences?.getInt("theme", 2)) {
             0 -> binding.tvTheme.text = "Light"
             1 -> binding.tvTheme.text = "Dark"
             2 -> binding.tvTheme.text = "System"
         }
+    }
+
+    private fun setSliderTextView(value: Float) {
+        if(value == 0f)
+            binding.tvUnderScore.text = "Never"
+        else
+            binding.tvUnderScore.text = "${value.toInt()}"
     }
 }
