@@ -26,22 +26,10 @@ class SettingsFragment : Fragment() {
 
         sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
         changeThemeTitle()
+        changeButtonTypeLayout()
 
         binding.clTheme.setOnClickListener {
-            if (!backdropOpen) {
-                binding.mcv.visibility = View.VISIBLE
-                childFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.anim_enter_backdrop,
-                        0,
-                        0,
-                        R.anim.anim_exit_backdrop,
-                    )
-                    .add(R.id.f, BackdropThemeFragment())
-                    .addToBackStack(null)
-                    .commit()
-                backdropOpen = true
-            }
+            openBackdrop(BackdropThemeFragment())
         }
 
         val underScore = sharedPreferences?.getFloat("underScore", 0f)!!
@@ -55,11 +43,11 @@ class SettingsFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             removeBackdrop()
-
         }
 
-        binding.tvExportData.setOnClickListener {}
-        binding.clType.setOnClickListener {}
+        binding.clType.setOnClickListener {
+            openBackdrop(BackdropTypeFragment())
+        }
 
         binding.clButton1.setOnClickListener {}
         binding.clButton2.setOnClickListener {}
@@ -70,7 +58,26 @@ class SettingsFragment : Fragment() {
         binding.clButton7.setOnClickListener {}
         binding.clButton8.setOnClickListener {}
 
+        binding.tvExportData.setOnClickListener {}
+
         return binding.root
+    }
+
+    private fun openBackdrop(backdrop: Fragment) {
+        if (!backdropOpen) {
+            binding.mcv.visibility = View.VISIBLE
+            childFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_enter_backdrop,
+                    0,
+                    0,
+                    R.anim.anim_exit_backdrop,
+                )
+                .add(R.id.f, backdrop)
+                .addToBackStack(null)
+                .commit()
+            backdropOpen = true
+        }
     }
 
     fun removeBackdrop() {
@@ -78,6 +85,7 @@ class SettingsFragment : Fragment() {
             binding.mcv.visibility = View.GONE
             childFragmentManager.popBackStack()
             changeThemeTitle()
+            changeButtonTypeLayout()
             backdropOpen = false
         } else {
             (activity as MainActivity).updateBottomNavigation()
@@ -92,8 +100,20 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun changeButtonTypeLayout() {
+        binding.llButtons.visibility = View.VISIBLE
+        when (sharedPreferences?.getInt("type", 0)) {
+            0 -> binding.tvType.text = "Colors"
+            1 -> {
+                binding.tvType.text = "Numbers"
+                binding.llButtons.visibility = View.GONE
+            }
+            2 -> binding.tvType.text = "Both"
+        }
+    }
+
     private fun setSliderTextView(value: Float) {
-        if(value == 0f)
+        if (value == 0f)
             binding.tvUnderScore.text = "Never"
         else
             binding.tvUnderScore.text = "${value.toInt()}"
