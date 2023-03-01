@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -40,6 +41,15 @@ class GameFragment : Fragment() {
     private val userColors = mutableListOf<Int>()
     private var score = 0
 
+    private var trueColor1 = 0
+    private var trueColor2 = 0
+    private var trueColor3 = 0
+    private var trueColor4 = 0
+    private var trueColor5 = 0
+    private var trueColor6 = 0
+    private var trueColor7 = 0
+    private var trueColor8 = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +64,9 @@ class GameFragment : Fragment() {
         tvMain2 = binding.tvMain2
 
         sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)!!
+
+        setColorButtons()
+
         if (sharedPreferences.getInt("type", 0) == 0) {
             setAllNumbersAsInvisible()
         } else if (sharedPreferences.getInt("type", 0) == 1) {
@@ -63,28 +76,28 @@ class GameFragment : Fragment() {
         disabledAll()
 
         binding.mcvPlay.setOnClickListener { startGame() }
-        binding.mcvButton1.setOnClickListener { changeColor(R.color.imperial_red) }
-        binding.mcvButton2.setOnClickListener { changeColor(R.color.orange_crayola) }
-        binding.mcvButton3.setOnClickListener { changeColor(R.color.fuchsia) }
-        binding.mcvButton4.setOnClickListener { changeColor(R.color.saffron) }
-        binding.mcvButton5.setOnClickListener { changeColor(R.color.pistachio) }
-        binding.mcvButton6.setOnClickListener { changeColor(R.color.medium_slate_blue) }
-        binding.mcvButton7.setOnClickListener { changeColor(R.color.rose_taupe) }
-        binding.mcvButton8.setOnClickListener { changeColor(R.color.cerulean) }
+        binding.mcvButton1.setOnClickListener { changeColor(trueColor1) }
+        binding.mcvButton2.setOnClickListener { changeColor(trueColor2) }
+        binding.mcvButton3.setOnClickListener { changeColor(trueColor3) }
+        binding.mcvButton4.setOnClickListener { changeColor(trueColor4) }
+        binding.mcvButton5.setOnClickListener { changeColor(trueColor5) }
+        binding.mcvButton6.setOnClickListener { changeColor(trueColor6) }
+        binding.mcvButton7.setOnClickListener { changeColor(trueColor7) }
+        binding.mcvButton8.setOnClickListener { changeColor(trueColor8) }
 
         return binding.root
     }
 
     private fun startGame() {
         val colors = mutableListOf(
-            R.color.imperial_red,
-            R.color.orange_crayola,
-            R.color.fuchsia,
-            R.color.saffron,
-            R.color.pistachio,
-            R.color.medium_slate_blue,
-            R.color.rose_taupe,
-            R.color.cerulean,
+            trueColor1,
+            trueColor2,
+            trueColor3,
+            trueColor4,
+            trueColor5,
+            trueColor6,
+            trueColor7,
+            trueColor8,
         )
 
         if (round % 5 == 0) {
@@ -127,21 +140,19 @@ class GameFragment : Fragment() {
         mcvMain.elevation = 1f
         mcvMain2.elevation = 200f
 
-        val color = ContextCompat.getColor(requireContext(), colorId)
-
         if (sharedPreferences.getInt("type", 0) != 1) {
-            mcvMain2.setBackgroundColor(color)
+            mcvMain2.setBackgroundColor(colorId)
         }
 
         tvMain2.text = when (colorId) {
-            R.color.imperial_red -> "1"
-            R.color.orange_crayola -> "2"
-            R.color.fuchsia -> "3"
-            R.color.saffron -> "4"
-            R.color.pistachio -> "5"
-            R.color.medium_slate_blue -> "6"
-            R.color.rose_taupe -> "7"
-            R.color.cerulean -> "8"
+            trueColor1 -> "1"
+            trueColor2 -> "2"
+            trueColor3 -> "3"
+            trueColor4 -> "4"
+            trueColor5 -> "5"
+            trueColor6 -> "6"
+            trueColor7 -> "7"
+            trueColor8 -> "8"
             else -> ""
         }
 
@@ -275,5 +286,47 @@ class GameFragment : Fragment() {
         binding.mcvButton6.setBackgroundColor(transparent)
         binding.mcvButton7.setBackgroundColor(transparent)
         binding.mcvButton8.setBackgroundColor(transparent)
+    }
+
+    private fun setColorButtons() {
+        var color = sharedPreferences.getInt("color1", R.color.imperial_red)
+        trueColor1 = compareColors(color, R.color.imperial_red)
+        binding.mcvButton1.setCardBackgroundColor(trueColor1)
+
+        color = sharedPreferences.getInt("color2", R.color.orange_crayola)
+        trueColor2 = compareColors(color, R.color.orange_crayola)
+        binding.mcvButton2.setCardBackgroundColor(trueColor2)
+
+        color = sharedPreferences.getInt("color3", R.color.fuchsia)
+        trueColor3 = compareColors(color, R.color.fuchsia)
+        binding.mcvButton3.setCardBackgroundColor(trueColor3)
+
+        color = sharedPreferences.getInt("color4", R.color.saffron)
+        trueColor4 = compareColors(color, R.color.saffron)
+        binding.mcvButton4.setCardBackgroundColor(trueColor4)
+
+        color = sharedPreferences.getInt("color5", R.color.pistachio)
+        trueColor5 = compareColors(color, R.color.pistachio)
+        binding.mcvButton5.setCardBackgroundColor(trueColor5)
+
+        color = sharedPreferences.getInt("color6", R.color.medium_slate_blue)
+        trueColor6 = compareColors(color, R.color.medium_slate_blue)
+        binding.mcvButton6.setCardBackgroundColor(trueColor6)
+
+        color = sharedPreferences.getInt("color7", R.color.rose_taupe)
+        trueColor7 = compareColors(color, R.color.rose_taupe)
+        binding.mcvButton7.setCardBackgroundColor(trueColor7)
+
+        color = sharedPreferences.getInt("color8", R.color.cerulean)
+        trueColor8 = compareColors(color, R.color.cerulean)
+        binding.mcvButton8.setCardBackgroundColor(trueColor8)
+    }
+
+    private fun compareColors(color1: Int, color2: Int): Int {
+        return if (color1 == color2) {
+            ContextCompat.getColor(requireContext(), color2)
+        } else {
+            color1
+        }
     }
 }
