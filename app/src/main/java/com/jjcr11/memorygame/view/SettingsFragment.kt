@@ -1,7 +1,9 @@
 package com.jjcr11.memorygame.view
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +80,12 @@ class SettingsFragment : Fragment() {
 
         binding.tvExportData.setOnClickListener {}
 
+        binding.llSourceCode.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jjcr11/memory-game"))
+            startActivity(intent)
+        }
+
         return binding.root
     }
 
@@ -137,7 +145,11 @@ class SettingsFragment : Fragment() {
             binding.tvUnderScore.text = "${value.toInt()}"
     }
 
-    private fun changeColorButton(materialCardView: MaterialCardView, tag: String, textView: TextView) {
+    private fun changeColorButton(
+        materialCardView: MaterialCardView,
+        tag: String,
+        textView: TextView
+    ) {
         val builder = ColorPickerDialog.Builder(requireContext())
             .setTitle("Select a color")
             .setPositiveButton("Select", ColorEnvelopeListener { envelope, _ ->
