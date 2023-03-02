@@ -12,5 +12,5 @@
     <string name="app_theme">App theme</string>
     <string name="dont_save_scores_under">Don\'t save scores under:</string>
     <string name="button_type">Button type</string>
-    <string name="export_import_data">Export / import data</string>
+    <string name="export_import_data">Export / import scores</string>
 </resources>

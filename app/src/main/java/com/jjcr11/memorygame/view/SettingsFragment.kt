@@ -78,7 +78,9 @@ class SettingsFragment : Fragment() {
         binding.clButton7.setOnClickListener { changeColorButton(binding.mcvButton7, "color7", binding.tvColorButton7) }
         binding.clButton8.setOnClickListener { changeColorButton(binding.mcvButton8, "color8", binding.tvColorButton8) }
 
-        binding.tvExportData.setOnClickListener {}
+        binding.tvExportData.setOnClickListener {
+            openBackdrop(BackdropExportFragment())
+        }
 
         binding.llSourceCode.setOnClickListener {
             val intent =

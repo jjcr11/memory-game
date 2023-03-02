@@ -71,4 +71,7 @@ dependencies {
 
     //Color picker view
     implementation 'com.github.skydoves:colorpickerview:2.2.4'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.1'
 }
