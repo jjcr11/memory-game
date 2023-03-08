@@ -65,7 +65,6 @@
         android:id="@+id/mcvButton1"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/imperial_red"
         app:layout_constraintEnd_toStartOf="@id/mcvButton2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider"
@@ -86,7 +85,6 @@
         android:id="@+id/mcvButton2"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/orange_crayola"
         app:layout_constraintEnd_toStartOf="@id/mcvButton3"
         app:layout_constraintStart_toEndOf="@id/mcvButton1"
         app:layout_constraintTop_toTopOf="@id/mcvButton1"
@@ -107,7 +105,6 @@
         android:id="@+id/mcvButton3"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/fuchsia"
         app:layout_constraintEnd_toStartOf="@id/mcvButton4"
         app:layout_constraintStart_toEndOf="@id/mcvButton2"
         app:layout_constraintTop_toTopOf="@id/mcvButton1"
@@ -128,7 +125,6 @@
         android:id="@+id/mcvButton4"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/saffron"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/mcvButton3"
         app:layout_constraintTop_toTopOf="@id/mcvButton1"
@@ -150,7 +146,6 @@
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
         android:layout_marginTop="@dimen/common"
-        app:cardBackgroundColor="@color/pistachio"
         app:layout_constraintStart_toStartOf="@id/mcvButton1"
         app:layout_constraintTop_toBottomOf="@id/mcvButton1"
         app:rippleColor="@color/payne_gray">
@@ -170,7 +165,6 @@
         android:id="@+id/mcvButton6"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/medium_slate_blue"
         app:layout_constraintStart_toStartOf="@id/mcvButton2"
         app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray">
@@ -190,7 +184,6 @@
         android:id="@+id/mcvButton7"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/rose_taupe"
         app:layout_constraintStart_toStartOf="@id/mcvButton3"
         app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray">
@@ -210,7 +203,6 @@
         android:id="@+id/mcvButton8"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:cardBackgroundColor="@color/cerulean"
         app:layout_constraintStart_toStartOf="@id/mcvButton4"
         app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray">

@@ -162,7 +162,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/imperial_red"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton1" />
@@ -194,7 +193,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/orange_crayola"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton2" />
@@ -226,7 +224,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/fuchsia"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton3"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton3" />
@@ -258,7 +255,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/saffron"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton4"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton4" />
@@ -290,7 +286,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/pistachio"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton5" />
@@ -322,7 +317,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/medium_slate_blue"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton6"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton6" />
@@ -354,7 +348,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/rose_taupe"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton7"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton7" />
@@ -386,7 +379,6 @@
                         android:layout_width="@dimen/small_button_side"
                         android:layout_height="@dimen/small_button_side"
                         android:layout_marginStart="@dimen/settings_margin"
-                        app:cardBackgroundColor="@color/cerulean"
                         app:layout_constraintBottom_toBottomOf="@id/tvColorButton8"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvColorButton8" />
