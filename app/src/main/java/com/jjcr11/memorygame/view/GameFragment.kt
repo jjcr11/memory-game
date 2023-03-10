@@ -128,7 +128,6 @@ class GameFragment : Fragment() {
     }
 
     private fun changeColor(color: String) {
-        disabledAll()
         val animation = setupAnimation(color)
         animation.start()
         mcvMain2.visibility = View.VISIBLE
