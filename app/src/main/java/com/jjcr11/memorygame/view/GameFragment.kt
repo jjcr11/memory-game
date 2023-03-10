@@ -233,6 +233,7 @@ class GameFragment : Fragment() {
             Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_SHORT).show()
             score = 0
             round = 1
+            size = 3
             binding.tvScore.text = score.toString()
             binding.tvScore.visibility = View.INVISIBLE
             binding.mcvPlay.visibility = View.VISIBLE
