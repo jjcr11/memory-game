@@ -3,6 +3,7 @@ package com.jjcr11.memorygame.view
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
@@ -18,18 +19,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)!!
+
         binding.bnv.selectedItemId = R.id.iPlay
 
-        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        when(sharedPreferences?.getInt("theme", 2)!!) {
+        if(sharedPreferences.getBoolean("onBoarding", true)) {
+            navController.navigate(R.id.onBoardingFragment)
+            binding.bnv.visibility = View.GONE
+        }
+
+        when(sharedPreferences.getInt("theme", 2)) {
             0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
-        val navController = navHostFragment.navController
 
         var prev: Int
 
@@ -66,6 +72,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun showBottomNavigation() {
+        binding.bnv.visibility = View.VISIBLE
     }
 
     fun updateBottomNavigation() {

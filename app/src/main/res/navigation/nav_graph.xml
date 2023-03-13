@@ -50,4 +50,53 @@
         app:exitAnim="@anim/anim_pop_exit_score"
         app:popEnterAnim="@anim/anim_enter_score"
         app:popExitAnim="@anim/anim_exit_score" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.jjcr11.memorygame.view.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment2"
+            app:enterAnim="@anim/anim_pop_enter_score"
+            app:exitAnim="@anim/anim_pop_exit_score"
+            app:popEnterAnim="@anim/anim_enter_score"
+            app:popExitAnim="@anim/anim_exit_score"/>
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment2"
+        android:name="com.jjcr11.memorygame.view.OnBoardingFragment2"
+        android:label="fragment_on_boarding2"
+        tools:layout="@layout/fragment_on_boarding2" >
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_onBoardingFragment3"
+            app:destination="@id/onBoardingFragment3"
+            app:enterAnim="@anim/anim_pop_enter_score"
+            app:exitAnim="@anim/anim_pop_exit_score"
+            app:popEnterAnim="@anim/anim_enter_score"
+            app:popExitAnim="@anim/anim_exit_score"/>
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment3"
+        android:name="com.jjcr11.memorygame.view.OnBoardingFragment3"
+        android:label="fragment_on_boarding3"
+        tools:layout="@layout/fragment_on_boarding3" >
+        <action
+            android:id="@+id/action_onBoardingFragment3_to_onBoardingFragment4"
+            app:destination="@id/onBoardingFragment4"
+            app:enterAnim="@anim/anim_pop_enter_score"
+            app:exitAnim="@anim/anim_pop_exit_score"
+            app:popEnterAnim="@anim/anim_enter_score"
+            app:popExitAnim="@anim/anim_exit_score"/>
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment4"
+        android:name="com.jjcr11.memorygame.view.OnBoardingFragment4"
+        android:label="fragment_on_boarding4"
+        tools:layout="@layout/fragment_on_boarding4" >
+        <action
+            android:id="@+id/action_onBoardingFragment4_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
 </navigation>

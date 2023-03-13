@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.OnBoardingFragment3">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:paddingHorizontal="1dp"
+        android:text="You can change the color buttons on settings section"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clType"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_option_height"
+        android:layout_marginTop="100dp"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/settings_margin"
+            android:text="@string/button_type"
+            android:textColor="@color/black"
+            android:textSize="@dimen/settings_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvType" />
+
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/settings_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Colors" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clButton1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_option_height"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clType">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvButton1"
+            android:layout_width="@dimen/small_button_side"
+            android:layout_height="@dimen/small_button_side"
+            android:layout_marginStart="@dimen/settings_margin"
+            app:layout_constraintBottom_toBottomOf="@id/tvColorButton1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvColorButton1" />
+
+        <TextView
+            android:id="@+id/tvColorButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/settings_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#F94144" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="100dp"
+        app:cardBackgroundColor="@color/cerulean"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="180"
+            android:src="@drawable/ic_arrow_forward" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvIndicator1"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="40dp"
+        app:cardBackgroundColor="@color/tea_green"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mcvBack"
+        app:layout_constraintEnd_toStartOf="@id/mcvIndicator2"
+        app:layout_constraintStart_toEndOf="@id/mcvBack"
+        app:layout_constraintTop_toTopOf="@id/mcvBack" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvIndicator2"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:cardBackgroundColor="@color/tea_green"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mcvIndicator1"
+        app:layout_constraintEnd_toStartOf="@id/mcvIndicator3"
+        app:layout_constraintStart_toEndOf="@id/mcvIndicator1"
+        app:layout_constraintTop_toTopOf="@id/mcvIndicator1" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvIndicator3"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:cardBackgroundColor="@color/pistachio"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mcvIndicator1"
+        app:layout_constraintEnd_toStartOf="@id/mcvIndicator4"
+        app:layout_constraintStart_toEndOf="@id/mcvIndicator2"
+        app:layout_constraintTop_toTopOf="@id/mcvIndicator1" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvIndicator4"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="40dp"
+        app:cardBackgroundColor="@color/tea_green"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mcvIndicator1"
+        app:layout_constraintEnd_toStartOf="@id/mcvNext"
+        app:layout_constraintStart_toEndOf="@id/mcvIndicator3"
+        app:layout_constraintTop_toTopOf="@id/mcvIndicator1" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvNext"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="50dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/cerulean"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mcvBack">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_forward" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
