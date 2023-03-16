@@ -11,12 +11,14 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentGameBinding
 import com.jjcr11.memorygame.model.AppDatabase
 import com.jjcr11.memorygame.model.Score
+import com.jjcr11.memorygame.viewmodel.GameViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,10 +30,10 @@ class GameFragment : Fragment() {
 
     private lateinit var binding: FragmentGameBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var gameViewModel: GameViewModel
     private var round = 1
     private var size = 3
-    private val gameColors = mutableListOf<String>()
-    private var score = 0
+    private var gameColors = mutableListOf<String>()
 
     private lateinit var colorButton1: String
     private lateinit var colorButton2: String
@@ -73,13 +75,62 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        gameViewModel = GameViewModel()
+        lifecycleScope.launch {
+            gameViewModel.score.collect { binding.tvScore.text = "$it" }
+
+        }
+        lifecycleScope.launch {
+            gameViewModel.mcvPlayVisible.collect {
+                binding.mcvPlay.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            }
+        }
+        lifecycleScope.launch {
+            gameViewModel.tvScoreVisible.collect {
+                binding.tvScore.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            }
+        }
+
+        savedInstanceState?.getInt("score")?.let { gameViewModel.score.value = it }
+        savedInstanceState?.getBoolean("mcvPlayVisible")?.let {
+            gameViewModel.mcvPlayVisible.value = it
+        }
+        savedInstanceState?.getBoolean("tvScoreVisible")?.let {
+            gameViewModel.mcvPlayVisible.value = it
+        }
+        savedInstanceState?.getInt("round")?.let { this.round = it }
+        savedInstanceState?.getInt("size")?.let { this.size = it }
+        savedInstanceState?.getStringArrayList("gameColors")?.let {
+            if (it.isNotEmpty()) {
+                this.gameColors = it
+                enabledAll()
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(this::binding.isInitialized) {
+            val numberString = binding.tvScore.text.toString()
+            outState.putInt("score", numberString.toInt())
+            outState.putBoolean("mcvPlayVisible", binding.mcvPlay.isVisible)
+            outState.putBoolean("tvScoreVisible", binding.mcvPlay.isVisible)
+            outState.putInt("round", round)
+            outState.putInt("size", size)
+            val arrayList = ArrayList(gameColors)
+            outState.putStringArrayList("gameColors", arrayList)
+        }
+    }
+
     private fun startGame(delay: Long = 0) {
         lifecycleScope.launch(Dispatchers.Main) {
             disabledAll()
             delay(delay)
             binding.mcvMain.visibility = View.INVISIBLE
-            binding.mcvPlay.visibility = View.INVISIBLE
-            binding.tvScore.visibility = View.VISIBLE
+            gameViewModel.setMcvPlayInvisible()
+            gameViewModel.setTvScoreVisible()
 
             val colors = mutableListOf(
                 colorButton1,
@@ -165,12 +216,10 @@ class GameFragment : Fragment() {
         }
     }
 
-
     private fun winRound() {
-        score++
+        gameViewModel.addScore()
         round++
         gameColors.clear()
-        binding.tvScore.text = "$score"
         startGame(delay = 1000)
     }
 
@@ -179,10 +228,10 @@ class GameFragment : Fragment() {
             val dao = AppDatabase.getDatabase(requireContext()).dao()
             withContext(Dispatchers.IO) {
                 val underScore = sharedPreferences.getFloat("underScore", 0f)
-                if (score >= underScore) {
+                if (gameViewModel.score.value >= underScore) {
                     val date = Date()
                     val score = Score(
-                        score = score,
+                        score = gameViewModel.score.value,
                         medal = R.color.transparent,
                         date = date
                     )
@@ -199,14 +248,18 @@ class GameFragment : Fragment() {
                     }
                 }
             }
-            Toast.makeText(requireContext(), "Score: $score", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Score: ${gameViewModel.score.value}",
+                Toast.LENGTH_LONG
+            ).show()
             binding.mcvPlay.visibility = View.VISIBLE
-            binding.tvScore.visibility = View.INVISIBLE
-            score = 0
+            gameViewModel.setMcvPlayVisible()
+            gameViewModel.setTvScoreInvisible()
+            gameViewModel.resetScore()
             round = 1
             size = 3
             gameColors.clear()
-            binding.tvScore.text = "$score"
             disabledAll()
         }
     }
