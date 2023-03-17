@@ -12,14 +12,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.window.layout.WindowMetricsCalculator
+import com.google.android.material.snackbar.Snackbar
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentScoreBinding
 import com.jjcr11.memorygame.model.AppDatabase
+import com.jjcr11.memorygame.model.Score
 import com.jjcr11.memorygame.viewmodel.ScoreViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ScoreFragment : Fragment() {
+class ScoreFragment : Fragment(), ScoreAdapterOnClick {
 
     private lateinit var binding: FragmentScoreBinding
     private lateinit var adapter: ScoreAdapter
@@ -35,7 +38,7 @@ class ScoreFragment : Fragment() {
     ): View {
         binding = FragmentScoreBinding.inflate(inflater, container, false)
 
-        adapter = ScoreAdapter(mutableListOf())
+        adapter = ScoreAdapter(mutableListOf(), this)
         layoutManager = LinearLayoutManager(requireContext())
 
         binding.rv.let {
@@ -58,10 +61,9 @@ class ScoreFragment : Fragment() {
                 viewLifecycleOwner
             )
         )
-        swipeHelper.attachToRecyclerView(binding.rv)
 
         binding.mtb.menu.getItem(0).setOnMenuItemClickListener {
-            if(!backdropOpen) {
+            if (!backdropOpen) {
                 binding.mcv.visibility = View.VISIBLE
                 binding.rv.setOnTouchListener { view, motionEvent -> true }
                 childFragmentManager.beginTransaction()
@@ -84,6 +86,20 @@ class ScoreFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val metrics = WindowMetricsCalculator.getOrCreate()
+            .computeCurrentWindowMetrics(requireActivity())
+
+        val dp = metrics.bounds.height() /
+                resources.displayMetrics.density
+
+        if (dp >= 480) {
+            swipeHelper.attachToRecyclerView(binding.rv)
+        }
+
     }
 
     fun removeBackdrop() {
@@ -119,11 +135,26 @@ class ScoreFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             val sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
             val scoreSelected = sharedPreferences?.getBoolean("scoreSelected", true)!!
-            if(scoreSelected) {
+            if (scoreSelected) {
                 scoreViewModel.getAllScoresByScore()
             } else {
                 scoreViewModel.getAllScoresByDate()
             }
         }
+    }
+
+    override fun onClick(score: Score, position: Int) {
+        adapter.deleteScore(position)
+        lifecycleScope.launch(Dispatchers.IO) {
+            AppDatabase.getDatabase(requireContext()).dao().removeScore(score)
+        }
+        Snackbar.make(binding.root, "Deleted", Snackbar.LENGTH_SHORT)
+            .setAction("Undo") {
+                adapter.restoreScore(position, score)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    AppDatabase.getDatabase(requireContext()).dao().addScore(score)
+                }
+            }
+            .show()
     }
 }

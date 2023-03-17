@@ -74,4 +74,7 @@ dependencies {
 
     //Gson
     implementation 'com.google.code.gson:gson:2.9.1'
+
+    //Window
+    implementation 'androidx.window:window:1.0.0'
 }

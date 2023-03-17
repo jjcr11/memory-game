@@ -15,6 +15,7 @@ import java.util.*
 
 class ScoreAdapter(
     scores: MutableList<Score>,
+    private val listener: ScoreAdapterOnClick
 ) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
     var scores = scores
@@ -27,6 +28,11 @@ class ScoreAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemScoreBinding.bind(view)
+        fun setListener(score: Score, position: Int) {
+            binding.ibDelete?.setOnClickListener {
+                listener.onClick(score, position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,6 +56,8 @@ class ScoreAdapter(
                 mutableDrawable,
                 ContextCompat.getColor(context, score.medal)
             )
+
+            it.setListener(score, position)
         }
     }
 
