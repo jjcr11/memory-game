@@ -1,7 +1,5 @@
 package com.jjcr11.memorygame.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -11,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jjcr11.memorygame.R
+import com.jjcr11.memorygame.databinding.DialogCustomBinding
 import com.jjcr11.memorygame.databinding.FragmentOnBoarding2Binding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,9 +24,7 @@ import kotlin.math.hypot
 class OnBoardingFragment2 : Fragment() {
 
     private lateinit var binding: FragmentOnBoarding2Binding
-    private lateinit var mcvMain: MaterialCardView
-    private lateinit var mcvMain2: MaterialCardView
-    private val userColors = mutableListOf<String>()
+    private var gameColors = mutableListOf<String>()
 
     private lateinit var colorButton1: String
     private lateinit var colorButton2: String
@@ -46,11 +42,6 @@ class OnBoardingFragment2 : Fragment() {
     ): View {
         binding = FragmentOnBoarding2Binding.inflate(inflater, container, false)
 
-        mcvMain = binding.mcvMain
-        mcvMain2 = binding.mcvMain2
-        setColorButtons()
-
-
         val navController = findNavController()
 
         binding.mcvBack.setOnClickListener {
@@ -61,90 +52,127 @@ class OnBoardingFragment2 : Fragment() {
             navController.navigate(R.id.action_onBoardingFragment2_to_onBoardingFragment3)
         }
 
+        makeDialog("Memorize the sequence", "of 3 colors") {
+            startGame()
+        }.show()
+
+        setColorButtons()
+        disabledAll()
+
         binding.mcvButton1.setOnClickListener { changeColor(colorButton1) }
+        binding.mcvButton2.setOnClickListener { changeColor(colorButton2) }
+        binding.mcvButton3.setOnClickListener { changeColor(colorButton3) }
+        binding.mcvButton4.setOnClickListener { changeColor(colorButton4) }
         binding.mcvButton5.setOnClickListener { changeColor(colorButton5) }
         binding.mcvButton6.setOnClickListener { changeColor(colorButton6) }
-        binding.mcvButton1.isEnabled = false
-        binding.mcvButton5.isEnabled = false
-        binding.mcvButton6.isEnabled = false
-
-        Toast.makeText(requireContext(), "Memorize the sequence", Toast.LENGTH_SHORT).show()
+        binding.mcvButton7.setOnClickListener { changeColor(colorButton7) }
+        binding.mcvButton8.setOnClickListener { changeColor(colorButton8) }
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun makeDialog(
+        line1: String,
+        line2: String,
+        function: (() -> Unit)?
+    ): MaterialAlertDialogBuilder {
+        val bindingDialog: DialogCustomBinding =
+            DialogCustomBinding.inflate(layoutInflater)
+
+        bindingDialog.tvLine1.text = line1
+        bindingDialog.tvLine2.text = line2
+
+        return MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(false)
+            .setView(bindingDialog.root)
+            .setPositiveButton("Accept") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                function?.invoke()
+            }
+    }
+
+    private fun startGame() {
+        gameColors.clear()
+        gameColors.add(colorButton1)
+        gameColors.add(colorButton5)
+        gameColors.add(colorButton6)
+
         lifecycleScope.launch(Dispatchers.Main) {
+            binding.mcvMain.visibility = View.INVISIBLE
+            binding.mcvMain.setBackgroundColor(Color.parseColor(colorButton1))
+            startAnimation()
+            binding.mcvMain.visibility = View.VISIBLE
+            delay(1200)
 
-            delay(800)
-            var animation = setupAnimation(colorButton1)
-            animation.start()
-            mcvMain2.visibility = View.VISIBLE
-            delay(800)
-            animation = setupAnimation(colorButton5)
-            animation.start()
-            mcvMain2.visibility = View.VISIBLE
-            delay(800)
-            animation = setupAnimation(colorButton6)
-            animation.start()
-            mcvMain2.visibility = View.VISIBLE
-            delay(800)
-            mcvMain.visibility = View.INVISIBLE
-            mcvMain2.visibility = View.INVISIBLE
-            Toast.makeText(
-                requireContext(),
-                "Press the buttons on correct order",
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.mcvButton1.isEnabled = true
-            binding.mcvButton5.isEnabled = true
-            binding.mcvButton6.isEnabled = true
+            binding.mcvMain.visibility = View.INVISIBLE
+            binding.mcvMain.setBackgroundColor(Color.parseColor(colorButton5))
+            startAnimation()
+            binding.mcvMain.visibility = View.VISIBLE
+            delay(1200)
+            binding.mcvMain.visibility = View.INVISIBLE
+
+            binding.mcvMain.visibility = View.INVISIBLE
+            binding.mcvMain.setBackgroundColor(Color.parseColor(colorButton6))
+            startAnimation()
+            binding.mcvMain.visibility = View.VISIBLE
+            delay(1200)
+            binding.mcvMain.visibility = View.INVISIBLE
+
+            makeDialog("Press the colors", "in correct order", null).show()
+
+            enabledAll()
         }
-
     }
 
-    private fun changeColor(color: String) {
-        val animation = setupAnimation(color)
-        animation.start()
-        mcvMain2.visibility = View.VISIBLE
-        userColors.add(color)
-    }
-
-    private fun setupAnimation(color: String): Animator {
-        mcvMain.elevation = 1f
-        mcvMain2.elevation = 200f
-        mcvMain2.setBackgroundColor(Color.parseColor(color))
-
-        val coords = Pair(mcvMain2.width / 2, mcvMain2.height / 2)
+    private fun startAnimation() {
+        val coords = Pair(binding.mcvMain.width / 2, binding.mcvMain.height / 2)
         val radius = hypot(coords.first.toDouble(), coords.second.toDouble()).toFloat()
         val animation = ViewAnimationUtils.createCircularReveal(
-            mcvMain2,
+            binding.mcvMain,
             coords.first,
             coords.second,
             0f,
             radius
-        ).let {
-            it.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    val mcvAux = mcvMain
-                    mcvMain = mcvMain2
-                    mcvMain2 = mcvAux
-                    mcvMain2.visibility = View.INVISIBLE
+        )
+        animation.duration = 700
+        animation.start()
+    }
 
-                    if (userColors.size == 3) {
-                        if (userColors == listOf(colorButton1, colorButton5, colorButton6)) {
-                            binding.mcvNext.visibility = View.VISIBLE
-                        }
-                        userColors.clear()
-                    }
-                }
-            })
-            it.duration = 800
-            it
+    private fun changeColor(color: String) {
+        binding.mcvMain.setBackgroundColor(Color.parseColor(color))
+        startAnimation()
+        binding.mcvMain.visibility = View.VISIBLE
+
+        if (color == gameColors[0]) {
+            gameColors.remove(color)
+            if (gameColors.isEmpty()) {
+                binding.mcvNext.visibility = View.VISIBLE
+            }
+        } else {
+            makeDialog("You Failed", "Try again") { startGame() }.show()
         }
-        return animation
+    }
+
+    private fun disabledAll() {
+        binding.mcvButton1.isEnabled = false
+        binding.mcvButton2.isEnabled = false
+        binding.mcvButton3.isEnabled = false
+        binding.mcvButton4.isEnabled = false
+        binding.mcvButton5.isEnabled = false
+        binding.mcvButton6.isEnabled = false
+        binding.mcvButton7.isEnabled = false
+        binding.mcvButton8.isEnabled = false
+    }
+
+    private fun enabledAll() {
+        binding.mcvButton1.isEnabled = true
+        binding.mcvButton2.isEnabled = true
+        binding.mcvButton3.isEnabled = true
+        binding.mcvButton4.isEnabled = true
+        binding.mcvButton5.isEnabled = true
+        binding.mcvButton6.isEnabled = true
+        binding.mcvButton7.isEnabled = true
+        binding.mcvButton8.isEnabled = true
     }
 
     private fun setColorButtons() {

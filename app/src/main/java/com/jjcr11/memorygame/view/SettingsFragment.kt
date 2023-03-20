@@ -1,6 +1,5 @@
 package com.jjcr11.memorygame.view
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,17 +7,16 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jjcr11.memorygame.R
+import com.jjcr11.memorygame.databinding.DialogCustomBinding
 import com.jjcr11.memorygame.databinding.FragmentSettingsBinding
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
@@ -144,8 +142,15 @@ class SettingsFragment : Fragment() {
         }
 
         binding.mtb.menu.getItem(0).setOnMenuItemClickListener {
+            val bindingDialog: DialogCustomBinding =
+                DialogCustomBinding.inflate(layoutInflater)
+
+            bindingDialog.tvLine1.text = "Reset all settings"
+            bindingDialog.tvLine2.visibility = View.GONE
+
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Reset all settings")
+                .setCancelable(false)
+                .setView(bindingDialog.root)
                 .setPositiveButton("Accept") { _, _ ->
                     sharedPreferences.edit().putFloat("underScore", 0f).apply()
                     binding.s.value = 0f
@@ -156,7 +161,9 @@ class SettingsFragment : Fragment() {
                 }
                 .setNegativeButton("Cancel") { dialogInterface, _ ->
                     dialogInterface.dismiss()
-                }.show()
+                }
+                .show()
+
             true
         }
 

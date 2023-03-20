@@ -6,68 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".view.OnBoardingFragment3">
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:paddingHorizontal="1dp"
-        android:text="You can change the color buttons on settings section"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clType"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_option_height"
-        android:layout_marginTop="100dp"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal"
+        android:layout_height="1dp"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/settings_margin"
-            android:text="@string/button_type"
-            android:textColor="@color/black"
-            android:textSize="@dimen/settings_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tvType"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvType" />
-
-        <TextView
-            android:id="@+id/tvType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/settings_margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/settings_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Colors" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="@id/clButton1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clButton1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_option_height"
+        android:layout_marginBottom="100dp"
         android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clType">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcvButton1"
@@ -92,6 +49,14 @@
             tools:text="#F94144" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/clButton1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcvBack"

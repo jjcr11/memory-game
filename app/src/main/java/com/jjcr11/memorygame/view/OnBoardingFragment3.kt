@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jjcr11.memorygame.R
+import com.jjcr11.memorygame.databinding.DialogCustomBinding
 import com.jjcr11.memorygame.databinding.FragmentOnBoarding3Binding
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
@@ -30,6 +32,20 @@ class OnBoardingFragment3 : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOnBoarding3Binding.inflate(inflater, container, false)
+
+        val bindingDialog: DialogCustomBinding =
+            DialogCustomBinding.inflate(layoutInflater)
+
+        bindingDialog.tvLine1.text = "Press the section to"
+        bindingDialog.tvLine2.text = "change the color button"
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(false)
+            .setView(bindingDialog.root)
+            .setPositiveButton("Accept") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .show()
 
         val colors: SharedPreferences
         if (isDarkTheme()) {
