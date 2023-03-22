@@ -1,5 +1,6 @@
 package com.jjcr11.memorygame.view
 
+import android.app.ActionBar
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -9,7 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentGameBinding
 import com.jjcr11.memorygame.model.AppDatabase
 import com.jjcr11.memorygame.model.Score
+import com.jjcr11.memorygame.model.Star
 import com.jjcr11.memorygame.viewmodel.GameViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -34,6 +37,7 @@ class GameFragment : Fragment() {
     private var round = 1
     private var size = 3
     private var gameColors = mutableListOf<String>()
+    private val stars = mutableListOf<Star>()
 
     private lateinit var colorButton1: String
     private lateinit var colorButton2: String
@@ -71,6 +75,9 @@ class GameFragment : Fragment() {
         binding.mcvButton6.setOnClickListener { changeColor(colorButton6) }
         binding.mcvButton7.setOnClickListener { changeColor(colorButton7) }
         binding.mcvButton8.setOnClickListener { changeColor(colorButton8) }
+
+        binding.vRecord.setOnClickListener { hideNewRecord() }
+        binding.tvClose.setOnClickListener { hideNewRecord() }
 
         return binding.root
     }
@@ -112,7 +119,7 @@ class GameFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(this::binding.isInitialized) {
+        if (this::binding.isInitialized) {
             val numberString = binding.tvScore.text.toString()
             outState.putInt("score", numberString.toInt())
             outState.putBoolean("mcvPlayVisible", binding.mcvPlay.isVisible)
@@ -122,6 +129,15 @@ class GameFragment : Fragment() {
             val arrayList = ArrayList(gameColors)
             outState.putStringArrayList("gameColors", arrayList)
         }
+    }
+
+    private fun hideNewRecord() {
+        binding.vRecord.visibility = View.GONE
+        binding.mcvRecord.visibility = View.GONE
+        for (star in stars) {
+            binding.root.removeView(star.view)
+        }
+        stars.clear()
     }
 
     private fun startGame(delay: Long = 0) {
@@ -225,9 +241,10 @@ class GameFragment : Fragment() {
 
     private fun failRound() {
         lifecycleScope.launch(Dispatchers.Main) {
-            val dao = AppDatabase.getDatabase(requireContext()).dao()
+            var scores = listOf<Score>()
             withContext(Dispatchers.IO) {
-                val underScore = sharedPreferences.getFloat("underScore", 0f)
+                val dao = AppDatabase.getDatabase(requireContext()).dao()
+                val underScore = sharedPreferences.getFloat("underScore", 1f)
                 if (gameViewModel.score.value >= underScore) {
                     val date = Date()
                     val score = Score(
@@ -236,7 +253,7 @@ class GameFragment : Fragment() {
                         date = date
                     )
                     dao.addScore(score)
-                    val scores = dao.getAllScoresByScore()
+                    scores = dao.getAllScoresByScore()
                     for (i in scores.indices) {
                         when (i) {
                             0 -> dao.updateMedal(scores[0].id, R.color.gold)
@@ -248,11 +265,35 @@ class GameFragment : Fragment() {
                     }
                 }
             }
-            Toast.makeText(
-                requireContext(),
-                "Score: ${gameViewModel.score.value}",
-                Toast.LENGTH_LONG
-            ).show()
+
+            val bestScores = scores.filter { it.score == gameViewModel.score.value }
+            if (bestScores.size == 1) {
+                binding.vRecord.visibility = View.VISIBLE
+                binding.mcvRecord.visibility = View.VISIBLE
+                binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
+                val scale = resources.displayMetrics.density
+                var margin = (10 * scale).toInt()
+                for (i in 1..100) {
+                    val imageView = makeImageView(scale)
+
+                    binding.root.addView(imageView)
+
+                    val constrainSet = makeConstrainSet(imageView, margin, i, scale)
+
+                    if (i % 2 == 0) {
+                        margin += (10 * scale).toInt()
+                    }
+
+                    constrainSet.applyTo(binding.root)
+
+                    val animationDuration = (2000..5000).random().toLong()
+
+                    val star = Star(imageView, animationDuration)
+                    star.startAnimations()
+                    stars.add(star)
+                }
+            }
+
             binding.mcvPlay.visibility = View.VISIBLE
             gameViewModel.setMcvPlayVisible()
             gameViewModel.setTvScoreInvisible()
@@ -262,6 +303,54 @@ class GameFragment : Fragment() {
             gameColors.clear()
             disabledAll()
         }
+    }
+
+    private fun makeImageView(scale: Float): ImageView {
+        return ImageView(requireContext()).apply {
+            id = View.generateViewId()
+            setImageResource(R.drawable.ic_star)
+            layoutParams = ActionBar.LayoutParams((20 * scale).toInt(), (20 * scale).toInt())
+            elevation = 50f
+            alpha = 0f
+            setColorFilter(ContextCompat.getColor(requireContext(), R.color.gold))
+        }
+    }
+
+    private fun makeConstrainSet(
+        imageView: ImageView,
+        margin: Int,
+        index: Int,
+        scale: Float
+    ): ConstraintSet {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.connect(
+            imageView.id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.TOP,
+            margin
+        )
+
+        if (index % 2 == 0) {
+            constraintSet.connect(
+                imageView.id,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START,
+                ((0..200).random() * scale).toInt()
+            )
+        } else {
+            constraintSet.connect(
+                imageView.id,
+                ConstraintSet.END,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.END,
+                ((0..200).random() * scale).toInt()
+            )
+        }
+
+        return constraintSet
     }
 
     private fun disabledAll() {

@@ -56,7 +56,7 @@ class SettingsFragment : Fragment() {
             openBackdrop(BackdropThemeFragment())
         }
 
-        val underScore = sharedPreferences.getFloat("underScore", 0f)
+        val underScore = sharedPreferences.getFloat("underScore", 1f)
         setSliderTextView(underScore)
         binding.s.value = underScore
 
@@ -152,8 +152,8 @@ class SettingsFragment : Fragment() {
                 .setCancelable(false)
                 .setView(bindingDialog.root)
                 .setPositiveButton("Accept") { _, _ ->
-                    sharedPreferences.edit().putFloat("underScore", 0f).apply()
-                    binding.s.value = 0f
+                    sharedPreferences.edit().putFloat("underScore", 1f).apply()
+                    binding.s.value = 1f
                     sharedPreferences.edit().putInt("type", 0).apply()
                     binding.llButtons.visibility = View.VISIBLE
                     binding.tvType.text = "Colors"
