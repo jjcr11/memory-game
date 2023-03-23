@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -273,12 +274,13 @@ class GameFragment : Fragment() {
                 binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
                 val scale = resources.displayMetrics.density
                 var margin = (10 * scale).toInt()
-                for (i in 1..100) {
+                val starCount = resources.displayMetrics.heightPixels / 10
+                for (i in 1..starCount) {
                     val imageView = makeImageView(scale)
 
                     binding.root.addView(imageView)
 
-                    val constrainSet = makeConstrainSet(imageView, margin, i, scale)
+                    val constrainSet = makeConstrainSet(imageView, margin, i)
 
                     if (i % 2 == 0) {
                         margin += (10 * scale).toInt()
@@ -318,9 +320,8 @@ class GameFragment : Fragment() {
 
     private fun makeConstrainSet(
         imageView: ImageView,
-        margin: Int,
+        marginTop: Int,
         index: Int,
-        scale: Float
     ): ConstraintSet {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
@@ -329,8 +330,11 @@ class GameFragment : Fragment() {
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            margin
+            marginTop
         )
+
+        val width = resources.displayMetrics.widthPixels / 2
+        val margin = (0..width).random()
 
         if (index % 2 == 0) {
             constraintSet.connect(
@@ -338,7 +342,7 @@ class GameFragment : Fragment() {
                 ConstraintSet.START,
                 ConstraintSet.PARENT_ID,
                 ConstraintSet.START,
-                ((0..200).random() * scale).toInt()
+                margin
             )
         } else {
             constraintSet.connect(
@@ -346,7 +350,7 @@ class GameFragment : Fragment() {
                 ConstraintSet.END,
                 ConstraintSet.PARENT_ID,
                 ConstraintSet.END,
-                ((0..200).random() * scale).toInt()
+                margin
             )
         }
 
