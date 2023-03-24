@@ -42,7 +42,7 @@
         android:id="@+id/mcvButton1"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toStartOf="@id/mcvButton2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider"
