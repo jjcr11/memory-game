@@ -4,66 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.OnBoardingFragment3">
+    tools:context=".view.OnBoardingFragment2">
 
     <View
-        android:layout_width="match_parent"
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/clButton1" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clButton1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_option_height"
-        android:layout_marginBottom="100dp"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mcvButton1"
-            android:layout_width="@dimen/small_button_side"
-            android:layout_height="@dimen/small_button_side"
-            android:layout_marginStart="@dimen/settings_margin"
-            app:layout_constraintBottom_toBottomOf="@id/tvColorButton1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvColorButton1" />
-
-        <TextView
-            android:id="@+id/tvColorButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/settings_margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/settings_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#F94144" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvMain"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/clButton1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="@dimen/main_view_corner_radius"
+        app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton1"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintEnd_toStartOf="@id/mcvButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton2"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintEnd_toStartOf="@id/mcvButton3"
+        app:layout_constraintStart_toEndOf="@id/mcvButton1"
+        app:layout_constraintTop_toTopOf="@id/mcvButton1"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton3"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintEnd_toStartOf="@id/mcvButton4"
+        app:layout_constraintStart_toEndOf="@id/mcvButton2"
+        app:layout_constraintTop_toTopOf="@id/mcvButton1"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton4"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mcvButton3"
+        app:layout_constraintTop_toTopOf="@id/mcvButton1"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton5"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        android:layout_marginTop="@dimen/common"
+        app:layout_constraintStart_toStartOf="@id/mcvButton1"
+        app:layout_constraintTop_toBottomOf="@id/mcvButton1"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton6"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintStart_toStartOf="@id/mcvButton2"
+        app:layout_constraintTop_toTopOf="@id/mcvButton5"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton7"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintStart_toStartOf="@id/mcvButton3"
+        app:layout_constraintTop_toTopOf="@id/mcvButton5"
+        app:rippleColor="@color/payne_gray" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvButton8"
+        android:layout_width="@dimen/button_side"
+        android:layout_height="@dimen/button_side"
+        app:layout_constraintStart_toStartOf="@id/mcvButton4"
+        app:layout_constraintTop_toTopOf="@id/mcvButton5"
+        app:rippleColor="@color/payne_gray" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcvBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="100dp"
         app:cardBackgroundColor="@color/cerulean"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -93,7 +132,7 @@
         android:id="@+id/mcvIndicator2"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        app:cardBackgroundColor="@color/tea_green"
+        app:cardBackgroundColor="@color/pistachio"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/mcvIndicator1"
@@ -105,7 +144,7 @@
         android:id="@+id/mcvIndicator3"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        app:cardBackgroundColor="@color/pistachio"
+        app:cardBackgroundColor="@color/tea_green"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/mcvIndicator1"
