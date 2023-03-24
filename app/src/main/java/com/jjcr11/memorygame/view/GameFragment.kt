@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.FragmentGameBinding
 import com.jjcr11.memorygame.model.AppDatabase
@@ -57,6 +57,11 @@ class GameFragment : Fragment() {
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
         sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)!!
+
+        if(sharedPreferences.getBoolean("onBoarding", true)) {
+            val navController = findNavController()
+            navController.navigate(R.id.onBoardingFragment)
+        }
 
         if (sharedPreferences.getInt("type", 0) == 0) {
             setAllNumbersAsInvisible()

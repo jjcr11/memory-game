@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         if(sharedPreferences.getBoolean("onBoarding", true)) {
-            navController.navigate(R.id.onBoardingFragment)
             binding.bnv.visibility = View.GONE
         }
 
