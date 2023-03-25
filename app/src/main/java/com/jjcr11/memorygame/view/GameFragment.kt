@@ -3,6 +3,7 @@ package com.jjcr11.memorygame.view
 import android.app.ActionBar
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -72,7 +73,7 @@ class GameFragment : Fragment() {
         setColorButtons()
         disabledAll()
 
-        binding.mcvPlay.setOnClickListener { startGame() }
+        binding.mcvPlay.setOnClickListener {startGame() }
         binding.mcvButton1.setOnClickListener { changeColor(colorButton1) }
         binding.mcvButton2.setOnClickListener { changeColor(colorButton2) }
         binding.mcvButton3.setOnClickListener { changeColor(colorButton3) }
@@ -147,6 +148,7 @@ class GameFragment : Fragment() {
 
     private fun startGame(delay: Long = 0) {
         lifecycleScope.launch(Dispatchers.Main) {
+            (activity as MainActivity).requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
             disabledAll()
             delay(delay)
             binding.mcvMain.visibility = View.INVISIBLE
@@ -184,6 +186,7 @@ class GameFragment : Fragment() {
                 delay(900)
                 binding.mcvMain.visibility = View.INVISIBLE
             }
+            (activity as MainActivity).requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
             enabledAll()
         }
     }

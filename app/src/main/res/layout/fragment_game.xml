@@ -9,9 +9,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcvMain"
-        android:layout_width="350dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
         android:visibility="invisible"
         app:cardCornerRadius="@dimen/main_view_corner_radius"
         app:layout_constraintBottom_toTopOf="@id/mcvPlay"
@@ -33,10 +34,13 @@
         android:id="@+id/mcvButton1"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toTopOf="@id/mcvButton5"
-        app:layout_constraintEnd_toStartOf="@id/mcvButton2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintVertical_chainStyle="packed"
         app:rippleColor="@color/payne_gray">
 
         <TextView
@@ -54,7 +58,7 @@
         android:id="@+id/mcvButton2"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:layout_constraintEnd_toStartOf="@id/mcvMain"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintStart_toEndOf="@id/mcvButton1"
         app:layout_constraintTop_toTopOf="@id/mcvButton1"
         app:rippleColor="@color/payne_gray">
@@ -113,9 +117,9 @@
         android:id="@+id/mcvButton3"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toStartOf="@id/mcvButton4"
-        app:layout_constraintStart_toEndOf="@id/mcvMain"
-        app:layout_constraintTop_toTopOf="@id/mcvButton2"
+        app:layout_constraintTop_toTopOf="@id/mcvButton1"
         app:rippleColor="@color/payne_gray">
 
         <TextView
@@ -133,9 +137,9 @@
         android:id="@+id/mcvButton4"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/mcvButton3"
-        app:layout_constraintTop_toTopOf="@id/mcvButton3"
+        app:layout_constraintTop_toTopOf="@id/mcvButton1"
         app:rippleColor="@color/payne_gray">
 
         <TextView
@@ -153,8 +157,8 @@
         android:id="@+id/mcvButton7"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:layout_constraintStart_toStartOf="@id/mcvButton3"
-        app:layout_constraintTop_toTopOf="@id/mcvButton6"
+        app:layout_constraintEnd_toEndOf="@id/mcvButton3"
+        app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray">
 
         <TextView
@@ -172,8 +176,9 @@
         android:id="@+id/mcvButton8"
         android:layout_width="@dimen/button_side"
         android:layout_height="@dimen/button_side"
-        app:layout_constraintStart_toStartOf="@id/mcvButton4"
-        app:layout_constraintTop_toTopOf="@id/mcvButton7"
+        app:layout_constraintEnd_toEndOf="@id/mcvButton4"
+        app:layout_constraintTop_toBottomOf="@id/mcvButton4"
+        app:layout_constraintTop_toTopOf="@id/mcvButton5"
         app:rippleColor="@color/payne_gray">
 
         <TextView
