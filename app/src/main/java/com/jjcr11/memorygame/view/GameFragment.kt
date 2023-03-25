@@ -58,7 +58,7 @@ class GameFragment : Fragment() {
 
         sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)!!
 
-        if(sharedPreferences.getBoolean("onBoarding", true)) {
+        if (sharedPreferences.getBoolean("onBoarding", true)) {
             val navController = findNavController()
             navController.navigate(R.id.onBoardingFragment)
         }
@@ -82,7 +82,6 @@ class GameFragment : Fragment() {
         binding.mcvButton7.setOnClickListener { changeColor(colorButton7) }
         binding.mcvButton8.setOnClickListener { changeColor(colorButton8) }
 
-        binding.vRecord.setOnClickListener { hideNewRecord() }
         binding.tvClose.setOnClickListener { hideNewRecord() }
 
         return binding.root
@@ -274,30 +273,32 @@ class GameFragment : Fragment() {
 
             val bestScores = scores.filter { it.score == gameViewModel.score.value }
             if (bestScores.size == 1) {
-                binding.vRecord.visibility = View.VISIBLE
-                binding.mcvRecord.visibility = View.VISIBLE
-                binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
-                val scale = resources.displayMetrics.density
-                var margin = (10 * scale).toInt()
-                val starCount = resources.displayMetrics.heightPixels / 10
-                for (i in 1..starCount) {
-                    val imageView = makeImageView(scale)
+                if (scores[0].score == gameViewModel.score.value) {
+                    binding.vRecord.visibility = View.VISIBLE
+                    binding.mcvRecord.visibility = View.VISIBLE
+                    binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
+                    val scale = resources.displayMetrics.density
+                    var margin = (10 * scale).toInt()
+                    val starCount = resources.displayMetrics.heightPixels / 10
+                    for (i in 1..starCount) {
+                        val imageView = makeImageView(scale)
 
-                    binding.root.addView(imageView)
+                        binding.root.addView(imageView)
 
-                    val constrainSet = makeConstrainSet(imageView, margin, i)
+                        val constrainSet = makeConstrainSet(imageView, margin, i)
 
-                    if (i % 2 == 0) {
-                        margin += (10 * scale).toInt()
+                        if (i % 2 == 0) {
+                            margin += (10 * scale).toInt()
+                        }
+
+                        constrainSet.applyTo(binding.root)
+
+                        val animationDuration = (2000..5000).random().toLong()
+
+                        val star = Star(imageView, animationDuration)
+                        star.startAnimations()
+                        stars.add(star)
                     }
-
-                    constrainSet.applyTo(binding.root)
-
-                    val animationDuration = (2000..5000).random().toLong()
-
-                    val star = Star(imageView, animationDuration)
-                    star.startAnimations()
-                    stars.add(star)
                 }
             }
 
