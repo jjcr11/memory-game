@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -73,7 +74,7 @@ class GameFragment : Fragment() {
         setColorButtons()
         disabledAll()
 
-        binding.mcvPlay.setOnClickListener {startGame() }
+        binding.mcvPlay.setOnClickListener { startGame() }
         binding.mcvButton1.setOnClickListener { changeColor(colorButton1) }
         binding.mcvButton2.setOnClickListener { changeColor(colorButton2) }
         binding.mcvButton3.setOnClickListener { changeColor(colorButton3) }
@@ -140,6 +141,7 @@ class GameFragment : Fragment() {
     private fun hideNewRecord() {
         binding.vRecord.visibility = View.GONE
         binding.mcvRecord.visibility = View.GONE
+        binding.mcvPlay.isEnabled = true
         for (star in stars) {
             binding.root.removeView(star.view)
         }
@@ -186,7 +188,8 @@ class GameFragment : Fragment() {
                 delay(900)
                 binding.mcvMain.visibility = View.INVISIBLE
             }
-            (activity as MainActivity).requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
+            (activity as MainActivity).requestedOrientation =
+                ActivityInfo.SCREEN_ORIENTATION_FULL_USER
             enabledAll()
         }
     }
@@ -275,34 +278,39 @@ class GameFragment : Fragment() {
             }
 
             val bestScores = scores.filter { it.score == gameViewModel.score.value }
-            if (bestScores.size == 1) {
-                if (scores[0].score == gameViewModel.score.value) {
-                    binding.vRecord.visibility = View.VISIBLE
-                    binding.mcvRecord.visibility = View.VISIBLE
-                    binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
-                    val scale = resources.displayMetrics.density
-                    var margin = (10 * scale).toInt()
-                    val starCount = resources.displayMetrics.heightPixels / 10
-                    for (i in 1..starCount) {
-                        val imageView = makeImageView(scale)
+            if (bestScores.size == 1 && scores[0].score == gameViewModel.score.value) {
+                binding.vRecord.visibility = View.VISIBLE
+                binding.mcvRecord.visibility = View.VISIBLE
+                binding.mcvPlay.isEnabled = false
+                binding.tvRecord.text = "Score: ${gameViewModel.score.value}"
+                val scale = resources.displayMetrics.density
+                var margin = (10 * scale).toInt()
+                val starCount = resources.displayMetrics.heightPixels / 10
+                for (i in 1..starCount) {
+                    val imageView = makeImageView(scale)
 
-                        binding.root.addView(imageView)
+                    binding.root.addView(imageView)
 
-                        val constrainSet = makeConstrainSet(imageView, margin, i)
+                    val constrainSet = makeConstrainSet(imageView, margin, i)
 
-                        if (i % 2 == 0) {
-                            margin += (10 * scale).toInt()
-                        }
-
-                        constrainSet.applyTo(binding.root)
-
-                        val animationDuration = (2000..5000).random().toLong()
-
-                        val star = Star(imageView, animationDuration)
-                        star.startAnimations()
-                        stars.add(star)
+                    if (i % 2 == 0) {
+                        margin += (10 * scale).toInt()
                     }
+
+                    constrainSet.applyTo(binding.root)
+
+                    val animationDuration = (2000..5000).random().toLong()
+
+                    val star = Star(imageView, animationDuration)
+                    star.startAnimations()
+                    stars.add(star)
                 }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Score: ${gameViewModel.score.value}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             binding.mcvPlay.visibility = View.VISIBLE
