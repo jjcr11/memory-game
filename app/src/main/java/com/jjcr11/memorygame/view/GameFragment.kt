@@ -6,7 +6,8 @@ import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
-import android.os.Bundle
+import android.media.MediaPlayer
+import android.os.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -195,6 +196,20 @@ class GameFragment : Fragment() {
     }
 
     private fun changeColor(color: String) {
+
+        if (sharedPreferences.getBoolean("vibration", true)) {
+            val vibrator: Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager =
+                    requireActivity().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                vibrator = vibratorManager.defaultVibrator
+                vibrator.vibrate(VibrationEffect.createOneShot(150, 10))
+            } else {
+                vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(100)
+            }
+        }
+
         if (sharedPreferences.getInt("type", 0) != 1) {
             binding.mcvMain.setBackgroundColor(Color.parseColor(color))
         }
@@ -207,9 +222,16 @@ class GameFragment : Fragment() {
         if (color == gameColors[0]) {
             gameColors.remove(color)
             if (gameColors.isEmpty()) {
+                if (sharedPreferences.getBoolean("sounds", true)) {
+                    MediaPlayer.create(requireContext(), R.raw.win).start()
+                }
+
                 winRound()
             }
         } else {
+            if (sharedPreferences.getBoolean("sounds", true)) {
+                MediaPlayer.create(requireContext(), R.raw.fail).start()
+            }
             failRound()
         }
 

@@ -65,6 +65,16 @@ class SettingsFragment : Fragment() {
             setSliderTextView(value)
         }
 
+        binding.sSounds.isChecked = sharedPreferences.getBoolean("sounds", true)
+        binding.sSounds.setOnCheckedChangeListener { _, b ->
+            sharedPreferences.edit()?.putBoolean("sounds", b)?.apply()
+        }
+
+        binding.sVibration.isChecked = sharedPreferences.getBoolean("vibration", true)
+        binding.sVibration.setOnCheckedChangeListener { _, b ->
+            sharedPreferences.edit()?.putBoolean("vibration", b)?.apply()
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             removeBackdrop()
         }
