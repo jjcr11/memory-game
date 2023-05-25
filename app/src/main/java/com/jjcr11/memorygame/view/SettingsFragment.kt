@@ -12,12 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.DialogCustomBinding
 import com.jjcr11.memorygame.databinding.FragmentSettingsBinding
+import com.jjcr11.memorygame.model.Button
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
@@ -27,17 +29,9 @@ class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private var backdropOpen = false
     private lateinit var colors: SharedPreferences
-
-    private lateinit var colorButton1: String
-    private lateinit var colorButton2: String
-    private lateinit var colorButton3: String
-    private lateinit var colorButton4: String
-    private lateinit var colorButton5: String
-    private lateinit var colorButton6: String
-    private lateinit var colorButton7: String
-    private lateinit var colorButton8: String
+    private var backdropOpen = false
+    private var buttons = listOf<Button>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +43,41 @@ class SettingsFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)!!
         changeThemeTitle()
         changeButtonTypeLayout()
+
+        buttons = listOf(
+            Button(
+                binding.clButton1, binding.mcvButton1, binding.tvColorButton1,
+                "colorButton1", "#DB070A", "#F94144"
+            ),
+            Button(
+                binding.clButton2, binding.mcvButton2, binding.tvColorButton2,
+                "colorButton2", "#C14B0B", "#F3722C"
+            ),
+            Button(
+                binding.clButton3, binding.mcvButton3, binding.tvColorButton3,
+                "colorButton3", "#C206B9", "#F820ED"
+            ),
+            Button(
+                binding.clButton4, binding.mcvButton4, binding.tvColorButton4,
+                "colorButton4", "#E1A008", "#F9C74F"
+            ),
+            Button(
+                binding.clButton5, binding.mcvButton5, binding.tvColorButton5,
+                "colorButton5", "#669443", "#90BE6D"
+            ),
+            Button(
+                binding.clButton6, binding.mcvButton6, binding.tvColorButton6,
+                "colorButton6", "#4A00F8", "#8D5BFF"
+            ),
+            Button(
+                binding.clButton7, binding.mcvButton7, binding.tvColorButton7,
+                "colorButton7", "#66433D", "#8F5E56"
+            ),
+            Button(
+                binding.clButton8, binding.mcvButton8, binding.tvColorButton8,
+                "colorButton8", "#1C5872", "#277DA1"
+            ),
+        )
 
         setColorButtons()
 
@@ -83,63 +112,15 @@ class SettingsFragment : Fragment() {
             openBackdrop(BackdropTypeFragment())
         }
 
-        binding.clButton1.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton1,
-                binding.tvColorButton1,
-                "colorButton1"
-            )
+        for (button in buttons) {
+            button.constraintLayout.setOnClickListener {
+                changeColorButton(
+                    button.materialCardView,
+                    button.textView,
+                    button.tag
+                )
+            }
         }
-        binding.clButton2.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton2,
-                binding.tvColorButton2,
-                "colorButton2"
-            )
-        }
-        binding.clButton3.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton3,
-                binding.tvColorButton3,
-                "colorButton3"
-            )
-        }
-        binding.clButton4.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton4,
-                binding.tvColorButton4,
-                "colorButton4"
-            )
-        }
-        binding.clButton5.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton5,
-                binding.tvColorButton5,
-                "colorButton5"
-            )
-        }
-        binding.clButton6.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton6,
-                binding.tvColorButton6,
-                "colorButton6"
-            )
-        }
-        binding.clButton7.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton7,
-                binding.tvColorButton7,
-                "colorButton7"
-            )
-        }
-        binding.clButton8.setOnClickListener {
-            changeColorButton(
-                binding.mcvButton8,
-                binding.tvColorButton8,
-                "colorButton8"
-            )
-        }
-
 
         binding.tvExportData.setOnClickListener {
             openBackdrop(BackdropExportFragment())
@@ -266,44 +247,18 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setColorButtons() {
-        if (isDarkTheme()) {
-            colors = activity?.getSharedPreferences("darkColors", Context.MODE_PRIVATE)!!
-            colorButton1 = colors.getString("colorButton1", "#DB070A")!!
-            colorButton2 = colors.getString("colorButton2", "#C14B0B")!!
-            colorButton3 = colors.getString("colorButton3", "#C206B9")!!
-            colorButton4 = colors.getString("colorButton4", "#E1A008")!!
-            colorButton5 = colors.getString("colorButton5", "#669443")!!
-            colorButton6 = colors.getString("colorButton6", "#4A00F8")!!
-            colorButton7 = colors.getString("colorButton7", "#66433D")!!
-            colorButton8 = colors.getString("colorButton8", "#1C5872")!!
-        } else {
-            colors = activity?.getSharedPreferences("lightColors", Context.MODE_PRIVATE)!!
-            colorButton1 = colors.getString("colorButton1", "#F94144")!!
-            colorButton2 = colors.getString("colorButton2", "#F3722C")!!
-            colorButton3 = colors.getString("colorButton3", "#F820ED")!!
-            colorButton4 = colors.getString("colorButton4", "#F9C74F")!!
-            colorButton5 = colors.getString("colorButton5", "#90BE6D")!!
-            colorButton6 = colors.getString("colorButton6", "#8D5BFF")!!
-            colorButton7 = colors.getString("colorButton7", "#8F5E56")!!
-            colorButton8 = colors.getString("colorButton8", "#277DA1")!!
+        for (button in buttons) {
+            val colorButton: String
+            if (isDarkTheme()) {
+                colors = activity?.getSharedPreferences("darkColors", Context.MODE_PRIVATE)!!
+                colorButton = colors.getString(button.tag, button.defaultDarkColor)!!
+            } else {
+                colors = activity?.getSharedPreferences("lightColors", Context.MODE_PRIVATE)!!
+                colorButton = colors.getString(button.tag, button.defaultLightColor)!!
+            }
+            button.materialCardView.setCardBackgroundColor(Color.parseColor(colorButton))
+            button.textView.text = colorButton
         }
-        binding.mcvButton1.setCardBackgroundColor(Color.parseColor(colorButton1))
-        binding.mcvButton2.setCardBackgroundColor(Color.parseColor(colorButton2))
-        binding.mcvButton3.setCardBackgroundColor(Color.parseColor(colorButton3))
-        binding.mcvButton4.setCardBackgroundColor(Color.parseColor(colorButton4))
-        binding.mcvButton5.setCardBackgroundColor(Color.parseColor(colorButton5))
-        binding.mcvButton6.setCardBackgroundColor(Color.parseColor(colorButton6))
-        binding.mcvButton7.setCardBackgroundColor(Color.parseColor(colorButton7))
-        binding.mcvButton8.setCardBackgroundColor(Color.parseColor(colorButton8))
-
-        binding.tvColorButton1.text = colorButton1
-        binding.tvColorButton2.text = colorButton2
-        binding.tvColorButton3.text = colorButton3
-        binding.tvColorButton4.text = colorButton4
-        binding.tvColorButton5.text = colorButton5
-        binding.tvColorButton6.text = colorButton6
-        binding.tvColorButton7.text = colorButton7
-        binding.tvColorButton8.text = colorButton8
     }
 
     private fun isDarkTheme(): Boolean =
@@ -315,40 +270,14 @@ class SettingsFragment : Fragment() {
         }
 
     private fun setDefaultColorButtons() {
-        if (isDarkTheme()) {
-            colors.edit().putString("colorButton1", "#DB070A").apply()
-            colors.edit().putString("colorButton2", "#C14B0B").apply()
-            colors.edit().putString("colorButton3", "#C206B9").apply()
-            colors.edit().putString("colorButton4", "#E1A008").apply()
-            colors.edit().putString("colorButton5", "#669443").apply()
-            colors.edit().putString("colorButton6", "#4A00F8").apply()
-            colors.edit().putString("colorButton7", "#66433D").apply()
-            colors.edit().putString("colorButton8", "#1C5872").apply()
-            binding.mcvButton1.setCardBackgroundColor(Color.parseColor("#DB070A"))
-            binding.mcvButton2.setCardBackgroundColor(Color.parseColor("#C14B0B"))
-            binding.mcvButton3.setCardBackgroundColor(Color.parseColor("#C206B9"))
-            binding.mcvButton4.setCardBackgroundColor(Color.parseColor("#E1A008"))
-            binding.mcvButton5.setCardBackgroundColor(Color.parseColor("#669443"))
-            binding.mcvButton6.setCardBackgroundColor(Color.parseColor("#4A00F8"))
-            binding.mcvButton7.setCardBackgroundColor(Color.parseColor("#66433D"))
-            binding.mcvButton8.setCardBackgroundColor(Color.parseColor("#1C5872"))
-        } else {
-            colors.edit().putString("colorButton1", "#F94144").apply()
-            colors.edit().putString("colorButton2", "#F3722C").apply()
-            colors.edit().putString("colorButton3", "#F820ED").apply()
-            colors.edit().putString("colorButton4", "#F9C74F").apply()
-            colors.edit().putString("colorButton5", "#90BE6D").apply()
-            colors.edit().putString("colorButton6", "#8D5BFF").apply()
-            colors.edit().putString("colorButton7", "#8F5E56").apply()
-            colors.edit().putString("colorButton8", "#277DA1").apply()
-            binding.mcvButton1.setCardBackgroundColor(Color.parseColor("#F94144"))
-            binding.mcvButton2.setCardBackgroundColor(Color.parseColor("#F3722C"))
-            binding.mcvButton3.setCardBackgroundColor(Color.parseColor("#F820ED"))
-            binding.mcvButton4.setCardBackgroundColor(Color.parseColor("#F9C74F"))
-            binding.mcvButton5.setCardBackgroundColor(Color.parseColor("#90BE6D"))
-            binding.mcvButton6.setCardBackgroundColor(Color.parseColor("#8D5BFF"))
-            binding.mcvButton7.setCardBackgroundColor(Color.parseColor("#8F5E56"))
-            binding.mcvButton8.setCardBackgroundColor(Color.parseColor("#277DA1"))
+        for (button in buttons) {
+            if (isDarkTheme()) {
+                colors.edit().putString(button.tag, button.defaultDarkColor).apply()
+                button.materialCardView.setCardBackgroundColor(Color.parseColor(button.defaultDarkColor))
+            } else {
+                colors.edit().putString(button.tag, button.defaultLightColor).apply()
+                button.materialCardView.setCardBackgroundColor(Color.parseColor(button.defaultLightColor))
+            }
         }
     }
 }
