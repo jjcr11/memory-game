@@ -42,19 +42,19 @@ class BackdropThemeFragment : Fragment() {
 
         binding.mcvLight.setOnClickListener {
             sharedPreferences?.edit()?.putInt("theme", 0)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         binding.mcvDark.setOnClickListener {
             sharedPreferences?.edit()?.putInt("theme", 1)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         binding.mcvSystem.setOnClickListener {
             sharedPreferences?.edit()?.putInt("theme", 2)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
 

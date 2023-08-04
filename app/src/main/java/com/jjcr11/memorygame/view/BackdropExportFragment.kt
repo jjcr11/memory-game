@@ -49,7 +49,7 @@ class BackdropExportFragment : Fragment() {
                         }
                     }
                     Toast.makeText(requireContext(), "Successfully", Toast.LENGTH_SHORT).show()
-                    (parentFragment as SettingsFragment).removeBackdrop()
+                    //(parentFragment as SettingsFragment).removeBackdrop()
                 }
 
             }
@@ -96,7 +96,7 @@ class BackdropExportFragment : Fragment() {
                     }
                     startActivity(Intent.createChooser(intent, null))
                 }
-                (parentFragment as SettingsFragment).removeBackdrop()
+                //(parentFragment as SettingsFragment).removeBackdrop()
             }
         }
 

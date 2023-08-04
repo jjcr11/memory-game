@@ -42,17 +42,17 @@ class BackdropTypeFragment : Fragment() {
 
         binding.mcvColors.setOnClickListener {
             sharedPreferences?.edit()?.putInt("type", 0)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
         }
 
         binding.mcvNumbers.setOnClickListener {
             sharedPreferences?.edit()?.putInt("type", 1)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
         }
 
         binding.mcvBoth.setOnClickListener {
             sharedPreferences?.edit()?.putInt("type", 2)?.apply()
-            (parentFragment as SettingsFragment).removeBackdrop()
+            //(parentFragment as SettingsFragment).removeBackdrop()
         }
 
         return binding.root

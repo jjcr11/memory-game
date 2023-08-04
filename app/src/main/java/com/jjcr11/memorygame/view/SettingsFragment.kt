@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.compose.material.MaterialTheme
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
@@ -20,12 +21,13 @@ import com.jjcr11.memorygame.R
 import com.jjcr11.memorygame.databinding.DialogCustomBinding
 import com.jjcr11.memorygame.databinding.FragmentSettingsBinding
 import com.jjcr11.memorygame.model.Button
+import com.jjcr11.memorygame.view.screens.settings.Settings
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
-class SettingsFragment : Fragment() {
+/*class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -279,5 +281,22 @@ class SettingsFragment : Fragment() {
                 button.materialCardView.setCardBackgroundColor(Color.parseColor(button.defaultLightColor))
             }
         }
+    }
+}*/
+
+class SettingsFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentSettingsBinding.inflate(inflater, container, false).apply {
+            composeView.setContent {
+                MaterialTheme {
+                    Settings()
+                }
+            }
+        }
+        return binding.root
     }
 }
