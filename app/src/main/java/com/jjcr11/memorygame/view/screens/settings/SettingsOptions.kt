@@ -1,5 +1,6 @@
 package com.jjcr11.memorygame.view.screens.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,14 +14,16 @@ import androidx.compose.ui.unit.dp
 import com.jjcr11.memorygame.R
 
 @Composable
-fun SettingsOptions(setting: String, value: String) {
+fun SettingsOptions(setting: String, value: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
+            .clickable(onClick = onClick)
             .height(dimensionResource(R.dimen.setting_option_height))
             .fillMaxSize()
             .padding(dimensionResource(R.dimen.settings_margin), 0.dp)
+
     ) {
         SettingsText(text = setting)
         SettingsText(text = value)
