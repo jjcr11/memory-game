@@ -2,7 +2,6 @@ package com.jjcr11.memorygame.view.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -19,7 +18,6 @@ fun SettingsBackdrop(items: List<BackdropItem>) {
         shape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
     ) {
         Column {
             items.forEach { SettingsBackdropItem(it) }

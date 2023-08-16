@@ -1,5 +1,6 @@
 package com.jjcr11.memorygame.view.screens.settings
 
+import android.content.SharedPreferences
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,10 +16,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.jjcr11.memorygame.R
+import kotlin.math.roundToInt
 
 @Composable
-fun SettingsSlider() {
-    val (sliderValue, setSliderValue) = remember { mutableStateOf(0f) }
+fun SettingsSlider(sharedPreferences: SharedPreferences) {
+    val (value, setValue) = remember { mutableStateOf(0f) }
+    setValue(sharedPreferences.getFloat("underScore", 1f))
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -27,14 +30,17 @@ fun SettingsSlider() {
             .padding(dimensionResource(R.dimen.settings_margin), 0.dp)
     ) {
         SettingsText(text = "Don't save scores under:")
-        SettingsText(text = "${sliderValue.toInt()}")
+        SettingsText(
+            text = if(value.roundToInt() == 0 ) "Never" else "${value.roundToInt()}"
+        )
     }
     Slider(
-        value = sliderValue,
+        value = value,
         valueRange = 0f..30f,
         steps = 30,
         onValueChange = {
-            setSliderValue(it)
+            setValue(it)
+            sharedPreferences.edit()?.putFloat("underScore", value)?.apply()
         },
         colors = SliderDefaults.colors(
             activeTrackColor = colorResource(R.color.orange_crayola),

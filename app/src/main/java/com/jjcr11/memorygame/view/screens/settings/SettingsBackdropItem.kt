@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,7 @@ fun SettingsBackdropItem(item: BackdropItem) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .clickable { }
+            .clickable(onClick = item.onClick)
             .fillMaxWidth()
             .height(50.dp)
             .padding(
@@ -39,19 +40,22 @@ fun SettingsBackdropItem(item: BackdropItem) {
         ) {
             Icon(
                 painter = painterResource(item.icon),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorResource(R.color.black)
             )
             Text(
                 modifier = Modifier.padding(start = 40.dp),
                 text = item.text,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = colorResource(R.color.black)
             )
         }
         if (item.selected) {
             Icon(
                 painter = painterResource(R.drawable.ic_check_circle_outline),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorResource(R.color.black)
             )
         }
     }
