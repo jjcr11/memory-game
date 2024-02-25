@@ -1,5 +1,6 @@
 package com.jjcr11.memorygame.view.screens.settings
 
+import android.content.SharedPreferences
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.jjcr11.memorygame.R
 
 @Composable
-fun SettingsSwitch(text: String) {
+fun SettingsSwitch(text: String, preferenceName:String ,sharedPreferences: SharedPreferences) {
     val (checked, setChecked) = remember { mutableStateOf(true) }
+    setChecked(sharedPreferences.getBoolean(preferenceName, true))
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -31,6 +33,7 @@ fun SettingsSwitch(text: String) {
             checked = checked,
             onCheckedChange = {
                 setChecked(it)
+                sharedPreferences.edit()?.putBoolean(preferenceName, it)?.apply()
             }
         )
     }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import com.jjcr11.memorygame.R
+import com.jjcr11.memorygame.databinding.DialogCustomBinding
 
 @Composable
 fun SettingsTopBar() {
@@ -19,14 +20,16 @@ fun SettingsTopBar() {
                 color = colorResource(R.color.white)
             )
         },
-        actions = {
-            IconButton(onClick = { }) {
+        /*actions = {
+            IconButton(onClick = {
+
+            }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_refresh),
                     contentDescription = null,
                     tint = colorResource(R.color.white)
                 )
             }
-        },
+        },*/
     )
 }

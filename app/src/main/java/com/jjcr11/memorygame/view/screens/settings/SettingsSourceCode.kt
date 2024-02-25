@@ -1,5 +1,9 @@
 package com.jjcr11.memorygame.view.screens.settings
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -16,16 +20,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.jjcr11.memorygame.R
 
 @Composable
-fun SettingsSourceCode() {
+fun SettingsSourceCode(activity: Activity) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .height(dimensionResource(R.dimen.setting_option_height))
             .fillMaxSize()
             .padding(dimensionResource(R.dimen.settings_margin), 0.dp)
+            .clickable {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jjcr11/memory-game"))
+                startActivity(activity, intent, null)
+            }
     ) {
         Icon(
             painter = painterResource(R.drawable.github_mark),

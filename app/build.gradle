@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId "com.jjcr11.memorygame"
         minSdk 22
-        targetSdk 31
-        versionCode 7
-        versionName "1.0.1"
+        targetSdk 33
+        versionCode 9
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //Desugaring
