@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,7 +45,7 @@ fun SettingsSourceCode(activity: Activity) {
                 .width(25.dp)
         )
         Text(
-            text = "Source code",
+            text = stringResource(R.string.source_code),
             color = colorResource(R.color.black),
             fontSize = dimensionResource(R.dimen.settings_text_size).value.sp,
             fontWeight = FontWeight.Bold,
