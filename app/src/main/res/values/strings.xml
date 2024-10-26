@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Memory Game</string>
+    <string name="app_name" translatable="false">Memory Game</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="score_list">Score list</string>
     <string name="play">Play</string>
     <string name="settings">Settings</string>
@@ -15,7 +15,7 @@
     <string name="export_import_data">Export / import scores</string>
     <string name="enjoy_the_game">Enjoy the game ;)</string>
     <string name="system">System</string>
-    <string name="light">Light</string>
+    <string name="light">Score list</string>
     <string name="dark">Dark</string>
     <string name="colors">Colors</string>
     <string name="numbers">Numbers</string>

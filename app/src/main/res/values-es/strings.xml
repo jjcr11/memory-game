@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_list">Lista de puntuaciones</string>
+    <string name="play">Jugar</string>
+    <string name="settings">Configuración</string>
+    <string name="default_score">0</string>
+    <string name="sort">Ordenar</string>
+    <string name="score">Puntuación</string>
+    <string name="date">Fecha</string>
+    <string name="app_theme">Tema de la aplicación</string>
+    <string name="dont_save_scores_under">No guardar puntuaciones menores a:</string>
+    <string name="button_type">Tipo de botón</string>
+    <string name="export_import_data">Exportar / importar puntuaciones</string>
+    <string name="enjoy_the_game">Disfruta el juego ;)</string>
+    <string name="system">Sistema</string>
+    <string name="light">Lista de puntuaciones</string>
+    <string name="dark">Oscuro</string>
+    <string name="colors">Colores</string>
+    <string name="numbers">Números</string>
+    <string name="both">Ambos</string>
+    <string name="source_code">Código fuente</string>
+
+</resources>
